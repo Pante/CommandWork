@@ -18,7 +18,6 @@ package com.karusmc.playwork.commands;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.plugin.java.JavaPlugin;
 
 /**
  *
@@ -31,12 +30,10 @@ public class AboutSubcommand implements Subcommand, CommandUtil {
     private CommandMeta meta;
     
     private String url;
-    private JavaPlugin plugin;
     
     private AboutSubcommand() {};
     
-    public AboutSubcommand(JavaPlugin plugin, String url) {
-        this.plugin = plugin;
+    public AboutSubcommand(String url) {
         this.url = url;
     }
     
@@ -62,9 +59,9 @@ public class AboutSubcommand implements Subcommand, CommandUtil {
         if (!checkSender(sender, meta.getPermission())) return;
         
         sender.sendMessage(ChatColor.GOLD 
-                + plugin.getDescription().getName() + " version: " + ChatColor.RED + plugin.getDescription().getVersion() + "\n"
-                + ChatColor.GOLD + plugin.getDescription().getDescription() + "\n"
-                + ChatColor.GOLD + "Author(s): " + ChatColor.RED + plugin.getDescription().getAuthors().toString()
+                + MainCommand.getPlugin().getDescription().getName() + " version: " + ChatColor.RED + MainCommand.getPlugin().getDescription().getVersion() + "\n"
+                + ChatColor.GOLD + MainCommand.getPlugin().getDescription().getDescription() + "\n"
+                + ChatColor.GOLD + "Author(s): " + ChatColor.RED + MainCommand.getPlugin().getDescription().getAuthors().toString()
                 + ChatColor.GOLD + "Source code & development resources: " + ChatColor.RED + url + " \n"
                 + ChatColor.GOLD + "Type " + ChatColor.RED + MainCommand.getHelpCommand() + ChatColor.GOLD + " for a list of commands.");
         

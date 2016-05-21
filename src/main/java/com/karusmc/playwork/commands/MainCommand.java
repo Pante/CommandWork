@@ -37,6 +37,7 @@ public class MainCommand implements CommandExecutor {
     public static final HashMap<String, Subcommand> COMMANDS = new HashMap<>();
     private final HashMap<String, Subcommand> SUBCOMMANDS = new HashMap<>();
     
+    private static JavaPlugin plugin;
     private static String helpCommand;
     
     
@@ -46,7 +47,7 @@ public class MainCommand implements CommandExecutor {
      * @param fullCommmandName The full command name written in the plugin.yml
      * @param subcommand The subcommand to register.
      */
-    public void registerSubcommand(JavaPlugin plugin, String fullCommmandName, Subcommand subcommand) {
+    public void registerSubcommand(String fullCommmandName, Subcommand subcommand) {
         
         COMMANDS.put(fullCommmandName, subcommand);
         
@@ -96,11 +97,20 @@ public class MainCommand implements CommandExecutor {
     
     // <------ Getter and Setter methods ------>
     
+    public static JavaPlugin getPlugin() {
+        return plugin;
+    }
+    
+    public static void setPlugin(JavaPlugin plugin) {
+        MainCommand.plugin = plugin;
+    }
+     
+    
     public static String getHelpCommand() {
         return helpCommand;
     }
     
-    public void setHelpCommand(String command) {
+    public static void setHelpCommand(String command) {
         helpCommand = command;
     }
     

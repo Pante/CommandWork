@@ -19,9 +19,10 @@ package com.karusmc.playwork.io;
 /**
  *
  * @author PanteLegacy @ karusmc.com
- * @param <E>
  */
 @FunctionalInterface
-public interface Output<E extends Exception> {
-    public void out(String message, E e);
+public interface Formatter {
+    
+    public void out(String message, Exception exception);
+    
 }
