@@ -62,7 +62,7 @@ public class AboutSubcommand implements Subcommand, CommandUtil {
         if (!checkSender(sender, meta.getPermission())) return;
         
         sender.sendMessage(ChatColor.GOLD 
-                + "HighBrushes version: " + ChatColor.RED + plugin.getDescription().getVersion() + "\n"
+                + plugin.getDescription().getName() + " version: " + ChatColor.RED + plugin.getDescription().getVersion() + "\n"
                 + ChatColor.GOLD + plugin.getDescription().getDescription() + "\n"
                 + ChatColor.GOLD + "Author(s): " + ChatColor.RED + plugin.getDescription().getAuthors().toString()
                 + ChatColor.GOLD + "Source code & development resources: " + ChatColor.RED + url + " \n"
