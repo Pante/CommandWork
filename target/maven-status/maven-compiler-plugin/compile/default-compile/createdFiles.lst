@@ -1,5 +1,6 @@
 com\karusmc\playwork\commands\HelpSubcommand.class
 com\karusmc\playwork\menus\MenuUtil.class
+com\karusmc\playwork\io\Output.class
 com\karusmc\playwork\commands\Subcommand.class
 com\karusmc\playwork\commands\AboutSubcommand.class
 com\karusmc\playwork\commands\CommandMeta.class
