@@ -16,6 +16,7 @@
  */
 package com.karusmc.playwork.commands;
 
+import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
 /**
@@ -32,8 +33,8 @@ public interface Subcommand {
     public void execute(CommandSender sender, String[] args);
     
     
-    public CommandMeta getMeta();
+    public Command getMeta();
     
-    public void setMeta(CommandMeta meta);
+    public void setMeta(Command meta);
     
 }

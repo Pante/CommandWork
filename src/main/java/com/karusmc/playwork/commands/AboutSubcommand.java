@@ -17,7 +17,9 @@
 package com.karusmc.playwork.commands;
 
 import org.bukkit.ChatColor;
+import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.plugin.java.JavaPlugin;
 
 /**
  *
@@ -27,26 +29,34 @@ import org.bukkit.command.CommandSender;
 public class AboutSubcommand implements Subcommand, CommandUtil {
     
     // Fields
-    private CommandMeta meta;
-    
+    private JavaPlugin plugin;
+    private Command meta;
     private String url;
+    
     
     private AboutSubcommand() {};
     
-    public AboutSubcommand(String url) {
+    public AboutSubcommand(JavaPlugin plugin, String url) {
+        this.plugin = plugin;
         this.url = url;
     }
     
+    
+    public JavaPlugin getPlugin() {
+        return plugin;
+    }
+    
+    public void setPlugin(JavaPlugin plugin) {
+        this.plugin = plugin;
+    }
+    
     @Override
-    public CommandMeta getMeta() {
-        if (meta == null) {
-            meta = new CommandMeta();
-        }
+    public Command getMeta() {
         return meta;
     }
     
     @Override
-    public void setMeta(CommandMeta properties) {
+    public void setMeta(Command properties) {
         this.meta = properties;
     }
     
@@ -59,11 +69,11 @@ public class AboutSubcommand implements Subcommand, CommandUtil {
         if (!checkSender(sender, meta.getPermission())) return;
         
         sender.sendMessage(ChatColor.GOLD 
-                + MainCommand.getPlugin().getDescription().getName() + " version: " + ChatColor.RED + MainCommand.getPlugin().getDescription().getVersion() + "\n"
-                + ChatColor.GOLD + MainCommand.getPlugin().getDescription().getDescription() + "\n"
-                + ChatColor.GOLD + "Author(s): " + ChatColor.RED + MainCommand.getPlugin().getDescription().getAuthors().toString()
+                + plugin.getDescription().getName() + " version: " + ChatColor.RED + plugin.getDescription().getVersion() + "\n"
+                + ChatColor.GOLD + plugin.getDescription().getDescription() + "\n"
+                + ChatColor.GOLD + "Author(s): " + ChatColor.RED + plugin.getDescription().getAuthors().toString()
                 + ChatColor.GOLD + "Source code & development resources: " + ChatColor.RED + url + " \n"
-                + ChatColor.GOLD + "Type " + ChatColor.RED + MainCommand.getHelpCommand() + ChatColor.GOLD + " for a list of commands.");
+                + ChatColor.GOLD +  MainCommand.getHelpMessage());
         
     }
     

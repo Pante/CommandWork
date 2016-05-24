@@ -17,9 +17,12 @@
 package com.karusmc.playwork.commands;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+
 import org.bukkit.ChatColor;
+import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
 /**
@@ -30,19 +33,16 @@ import org.bukkit.command.CommandSender;
 public class HelpSubcommand implements Subcommand, CommandUtil {
     
     // Fields
-    private CommandMeta meta;
+    private Command meta;
     private final int SIZE = 3;
     
     @Override
-    public CommandMeta getMeta() {
-        if (meta == null) {
-            meta = new CommandMeta();
-        }
+    public Command getMeta() {
         return meta;
     }
     
     @Override
-    public void setMeta(CommandMeta meta) {
+    public void setMeta(Command meta) {
         this.meta = meta;
     }
     
@@ -66,16 +66,18 @@ public class HelpSubcommand implements Subcommand, CommandUtil {
         }
         
         ArrayList<String> commands;
+        
         if (args.length == 1 || args[1].equals("all")) {
-             commands = new ArrayList<>(MainCommand.COMMANDS.entrySet().stream().filter(entry -> 
-                sender.hasPermission(entry.getValue().getMeta().getPermission())
-            ).collect(Collectors.toMap(entry -> entry.getKey(), entry -> entry.getValue())).keySet());
+            commands = new ArrayList<>(MainCommand.getRegisteredCommands().entrySet().stream().filter(entry -> 
+                sender.hasPermission(entry.getValue().getPermission())
+            ).limit(page * SIZE).map(HashMap.Entry::getKey).collect(Collectors.toList()));
 
         } else {
-            commands = new ArrayList<>(MainCommand.COMMANDS.entrySet().stream().filter(entry -> 
-                entry.getKey().contains(args[1]) && sender.hasPermission(entry.getValue().getMeta().getPermission())
-            ).collect(Collectors.toMap(entry -> entry.getKey(), entry -> entry.getValue())).keySet());
+            commands = new ArrayList<>(MainCommand.getRegisteredCommands().entrySet().stream().filter(entry -> 
+                entry.getKey().contains(args[1]) && sender.hasPermission(entry.getValue().getPermission())
+            ).limit(page * SIZE).map(HashMap.Entry::getKey).collect(Collectors.toList()));
         }
+        
         
         if (commands.isEmpty()) {
             sender.sendMessage(ChatColor.RED + "No matches found.");
@@ -98,7 +100,7 @@ public class HelpSubcommand implements Subcommand, CommandUtil {
         }
         
         IntStream.range(page * SIZE - SIZE, commands.size()).limit(SIZE)
-        .forEach(i -> sender.sendMessage(ChatColor.GOLD + MainCommand.COMMANDS.get(commands.get(i)).getMeta().getUsage()));
+        .forEach(i -> sender.sendMessage(ChatColor.GOLD + MainCommand.getRegisteredCommands().get(commands.get(i)).getUsage()));
         
     }
     
