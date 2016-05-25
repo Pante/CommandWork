@@ -74,7 +74,7 @@ public interface CommandUtil {
      * @return True if the number of arguments is between the min and max parameters.
      */
     public default boolean checkLength(CommandSender sender, Subcommand cmd, String[] args, int min, int max) {
-        if (args.length < min || args.length > max) {
+        if (args.length < min && args.length > max) {
             sender.sendMessage(ChatColor.RED + cmd.getMeta().getUsage());
             return false;
         } else return true;

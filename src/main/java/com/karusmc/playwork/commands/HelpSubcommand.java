@@ -18,6 +18,8 @@ package com.karusmc.playwork.commands;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map.Entry;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -53,31 +55,37 @@ public class HelpSubcommand implements Subcommand, CommandUtil {
         if (!checkLength(sender, this, args, 1, 3)) return;
         if (!checkSender(sender, meta.getPermission())) return;
         
-        int page;
-        if (args.length == 3) {
+        int page = parsePage(args);
+        
+        Predicate<Entry<String, Command>> conditions;
+        if (args.length == 1 || args[1].equals("all")) {
+            conditions = (entry) -> sender.hasPermission(entry.getValue().getPermission());
+        } else { 
+            conditions = (entry) -> entry.getKey().contains(args[1]) && sender.hasPermission(entry.getValue().getPermission());
+        }
+        
+        ArrayList<String> commands = new ArrayList<>(MainCommand.getRegisteredCommands().entrySet().stream()
+                .filter(conditions::test).limit(page * SIZE)
+                .map(HashMap.Entry::getKey).collect(Collectors.toList()));
+        
+        printHelpInfo(sender, args, page, commands);
+        
+    }
+    
+    
+    private int parsePage(String[] arguments) {
+        if (arguments.length == 3) {
             try {
-                page = Integer.parseInt(args[2]);
+                return Integer.parseInt(arguments[2]);
             } catch (NumberFormatException e) {
-                sender.sendMessage(ChatColor.RED + "Invalid page number!");
-                return;
+                return 1;
             }
         } else {
-            page = 1;
+            return 1;
         }
-        
-        ArrayList<String> commands;
-        
-        if (args.length == 1 || args[1].equals("all")) {
-            commands = new ArrayList<>(MainCommand.getRegisteredCommands().entrySet().stream().filter(entry -> 
-                sender.hasPermission(entry.getValue().getPermission())
-            ).limit(page * SIZE).map(HashMap.Entry::getKey).collect(Collectors.toList()));
-
-        } else {
-            commands = new ArrayList<>(MainCommand.getRegisteredCommands().entrySet().stream().filter(entry -> 
-                entry.getKey().contains(args[1]) && sender.hasPermission(entry.getValue().getPermission())
-            ).limit(page * SIZE).map(HashMap.Entry::getKey).collect(Collectors.toList()));
-        }
-        
+    }
+    
+    private void printHelpInfo(CommandSender sender, String[] args, int page, ArrayList<String> commands) {
         
         if (commands.isEmpty()) {
             sender.sendMessage(ChatColor.RED + "No matches found.");
@@ -91,15 +99,17 @@ public class HelpSubcommand implements Subcommand, CommandUtil {
             return;
         }
         
+        String helpTopic;
         if (args.length == 1) {
-            sender.sendMessage(ChatColor.GOLD + "==== Help: " + ChatColor.RED + "All" + ChatColor.GOLD 
-                    + " === Page: " + ChatColor.RED + page + "/" + totalPages + ChatColor.GOLD + " ====");
+            helpTopic = "All";
         } else {
-            sender.sendMessage(ChatColor.GOLD + "==== Help: " + ChatColor.RED + args[1] + ChatColor.GOLD 
-                + " === Page: " + ChatColor.RED + page + "/" + totalPages + ChatColor.GOLD + " ====");
+            helpTopic = args[1];
         }
         
-        IntStream.range(page * SIZE - SIZE, commands.size()).limit(SIZE)
+        sender.sendMessage(ChatColor.GOLD + "==== Help: " + ChatColor.RED + helpTopic + ChatColor.GOLD 
+                    + " === Page: " + ChatColor.RED + page + "/" + totalPages + ChatColor.GOLD + " ====");
+        
+        IntStream.range(page * SIZE - SIZE, commands.size())
         .forEach(i -> sender.sendMessage(ChatColor.GOLD + MainCommand.getRegisteredCommands().get(commands.get(i)).getUsage()));
         
     }

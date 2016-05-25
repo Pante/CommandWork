@@ -16,7 +16,6 @@
  */
 package com.karusmc.playwork.commands;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.bukkit.ChatColor;
@@ -31,7 +30,7 @@ import org.bukkit.command.CommandSender;
 public class MainCommand implements CommandExecutor {
     
     // Fields
-    private static final HashMap<String, Command> REGISTEREDCOMMANDS = new HashMap<>();
+    private static final HashMap<String, Command> REGISTERED_COMMANDS = new HashMap<>();
     private static String helpMessage;
     
     private final HashMap<String, Subcommand> SUBCOMMANDS;
@@ -44,30 +43,21 @@ public class MainCommand implements CommandExecutor {
     
     public void registerSubcommand(Subcommand subcommand, Command command) {
         
-        REGISTEREDCOMMANDS.put(command.getName(), command);
+        REGISTERED_COMMANDS.put(command.getName(), command);
  
         subcommand.setMeta(command);
         command.getAliases().stream().forEach(alias -> SUBCOMMANDS.put(alias, subcommand));
         
     }
     
+    
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         
         if (args.length == 0 || SUBCOMMANDS.get(args[0]) == null) {
-            sender.sendMessage(ChatColor.RED + helpMessage); 
+            sender.sendMessage(helpMessage); 
         } else if (args[args.length - 1].equals("?")) {
-            
-            Command meta = SUBCOMMANDS.get(args[0]).getMeta();
-            ArrayList<String> information = new ArrayList<>();
-            
-            information.add(ChatColor.GOLD + "==== Help: " + ChatColor.RED + args[0] + ChatColor.GOLD + " ====");
-            information.add(ChatColor.GOLD + "\nAliases: "  + ChatColor.RED + meta.getAliases().toString());
-            information.add(ChatColor.GOLD + "\nDescription: " + ChatColor.RED + meta.getDescription());
-            information.add(ChatColor.GOLD + "\nUsage: " + ChatColor.RED + meta.getUsage());
-            
-            sender.sendMessage(information.toArray(new String[information.size()]));
-            
+            sender.sendMessage(getCommandInfo(args[0]));        
         } else {
             SUBCOMMANDS.get(args[0]).execute(sender, args);
         }
@@ -76,11 +66,24 @@ public class MainCommand implements CommandExecutor {
         
     }
     
+    private String[] getCommandInfo(String command) {
+        
+        Command meta = SUBCOMMANDS.get(command).getMeta();
+        
+        return new String[]{
+            ChatColor.GOLD + "==== Help: " + ChatColor.RED + command + ChatColor.GOLD + " ====",
+            ChatColor.GOLD + "\nAliases: " + ChatColor.RED + meta.getAliases().toString(),
+            ChatColor.GOLD + "\nDescription: " + ChatColor.RED + meta.getDescription(),
+            ChatColor.GOLD + "\nUsage: " + ChatColor.RED + meta.getUsage()
+        };
+
+    }
+    
     
     // <------ Getter & Setter methods ------>
     
     public static HashMap<String, Command> getRegisteredCommands() {
-        return REGISTEREDCOMMANDS;
+        return REGISTERED_COMMANDS;
     }
     
     public static String getHelpMessage() {
