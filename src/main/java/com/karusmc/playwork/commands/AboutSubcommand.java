@@ -19,7 +19,7 @@ package com.karusmc.playwork.commands;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.plugin.PluginDescriptionFile;
 
 /**
  *
@@ -28,26 +28,24 @@ import org.bukkit.plugin.java.JavaPlugin;
  */
 public class AboutSubcommand implements Subcommand, CommandUtil {
     
-    // Fields
-    private JavaPlugin plugin;
+    private PluginDescriptionFile pluginDescription;
     private Command meta;
     private String url;
     
-    
     private AboutSubcommand() {};
     
-    public AboutSubcommand(JavaPlugin plugin, String url) {
-        this.plugin = plugin;
+    public AboutSubcommand(PluginDescriptionFile description, String url) {
+        this.pluginDescription = description;
         this.url = url;
     }
     
     
-    public JavaPlugin getPlugin() {
-        return plugin;
+    public PluginDescriptionFile getPluginDescription() {
+        return pluginDescription;
     }
     
-    public void setPlugin(JavaPlugin plugin) {
-        this.plugin = plugin;
+    public void setPlugin(PluginDescriptionFile description) {
+        this.pluginDescription = description;
     }
     
     @Override
@@ -69,9 +67,9 @@ public class AboutSubcommand implements Subcommand, CommandUtil {
         if (!checkSender(sender, meta.getPermission())) return;
         
         sender.sendMessage(ChatColor.GOLD 
-                + plugin.getDescription().getName() + " version: " + ChatColor.RED + plugin.getDescription().getVersion() + "\n"
-                + ChatColor.GOLD + plugin.getDescription().getDescription() + "\n"
-                + ChatColor.GOLD + "Author(s): " + ChatColor.RED + plugin.getDescription().getAuthors().toString()
+                + pluginDescription.getName() + " version: " + ChatColor.RED + pluginDescription.getVersion() + "\n"
+                + ChatColor.GOLD + pluginDescription.getDescription() + "\n"
+                + ChatColor.GOLD + "Author(s): " + ChatColor.RED + pluginDescription.getAuthors().toString()
                 + ChatColor.GOLD + "Source code & development resources: " + ChatColor.RED + url + " \n"
                 + ChatColor.GOLD +  MainCommand.getHelpMessage());
         

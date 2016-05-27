@@ -54,7 +54,7 @@ public class MainCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         
-        if (args.length == 0 || SUBCOMMANDS.get(args[0]) == null) {
+        if (args.length == 0 || !SUBCOMMANDS.containsKey(args[0])) {
             sender.sendMessage(helpMessage); 
         } else if (args[args.length - 1].equals("?")) {
             sender.sendMessage(getCommandInfo(args[0]));        
