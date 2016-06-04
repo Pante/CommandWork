@@ -32,19 +32,19 @@ import org.bukkit.command.CommandSender;
  * @author PanteLegacy @ karusmc.com
  * Displays information about a command
  */
-public class HelpSubcommand implements Subcommand, CommandUtil {
+public class HelpSubcommand implements SubcommandExecutor, CommandUtil {
     
     // Fields
     private Command meta;
     private final int SIZE = 3;
     
     @Override
-    public Command getMeta() {
+    public Command getCommand() {
         return meta;
     }
     
     @Override
-    public void setMeta(Command meta) {
+    public void setCommand(Command meta) {
         this.meta = meta;
     }
     

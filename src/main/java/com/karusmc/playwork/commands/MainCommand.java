@@ -33,7 +33,7 @@ public class MainCommand implements CommandExecutor {
     private static final HashMap<String, Command> REGISTERED_COMMANDS = new HashMap<>();
     private static String helpMessage;
     
-    private final HashMap<String, Subcommand> SUBCOMMANDS;
+    private final HashMap<String, SubcommandExecutor> SUBCOMMANDS;
     
     
     public MainCommand() {
@@ -41,12 +41,12 @@ public class MainCommand implements CommandExecutor {
     }
     
     
-    public void registerSubcommand(Subcommand subcommand, Command command) {
+    public void registerSubcommand(SubcommandExecutor executor, Command command) {
         
         REGISTERED_COMMANDS.put(command.getName(), command);
  
-        subcommand.setMeta(command);
-        command.getAliases().stream().forEach(alias -> SUBCOMMANDS.put(alias, subcommand));
+        executor.setCommand(command);
+        command.getAliases().stream().forEach(alias -> SUBCOMMANDS.put(alias, executor));
         
     }
     
@@ -68,7 +68,7 @@ public class MainCommand implements CommandExecutor {
     
     private String[] getCommandInfo(String command) {
         
-        Command meta = SUBCOMMANDS.get(command).getMeta();
+        Command meta = SUBCOMMANDS.get(command).getCommand();
         
         return new String[]{
             ChatColor.GOLD + "==== Help: " + ChatColor.RED + command + ChatColor.GOLD + " ====",

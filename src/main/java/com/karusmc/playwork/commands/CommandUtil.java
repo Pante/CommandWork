@@ -23,30 +23,21 @@ import org.bukkit.entity.Player;
 /**
  *
  * @author PanteLegacy @ karusmc.com
- * Utility interface that contains useful default methods.
  */
 public interface CommandUtil {
     
-    /** Checks if the sender has the necessary permission
-     * @param sender The sender to check.
-     * @param permission The permission to check.
-     * @return  true if the sender has the necessary permission.*/
     public default boolean checkSender(CommandSender sender, String permission) {
 
-        if (sender.hasPermission(permission)) return true;
+        if (sender.hasPermission(permission)) {
+            return true;
+        }
         else {
             sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
             return false;
         }
 
     }
-    
-    /** Checks if the sender is a player and has the necessary permission
-     * 
-     * @param sender The sender to check
-     * @param permission The Permission to check.
-     * @return True if the sender is a player and has the necessary permission.
-     */
+   
     public default boolean checkPlayer(CommandSender sender, String permission) {
        
         if (!(sender instanceof Player)) {
@@ -54,7 +45,9 @@ public interface CommandUtil {
             return false;
         }
         
-        if (sender.hasPermission(permission)) return true;
+        if (sender.hasPermission(permission)) {
+            return true;
+        }
         else {
             sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
             return false;
@@ -62,22 +55,13 @@ public interface CommandUtil {
         
     }
     
-
-
-    /** Checks if the number of arguments specified are valid
-     * 
-     * @param sender The sender.
-     * @param cmd The command.
-     * @param args The arguments.
-     * @param min The minimum number of arguments.
-     * @param max The maximum number of arguments.
-     * @return True if the number of arguments is between the min and max parameters.
-     */
-    public default boolean checkLength(CommandSender sender, Subcommand cmd, String[] args, int min, int max) {
+    public default boolean checkLength(CommandSender sender, SubcommandExecutor cmd, String[] args, int min, int max) {
         if (args.length < min && args.length > max) {
-            sender.sendMessage(ChatColor.RED + cmd.getMeta().getUsage());
+            return true;
+        } else {
+            sender.sendMessage(ChatColor.RED + cmd.getCommand().getUsage());
             return false;
-        } else return true;
+        }
     }
     
 }

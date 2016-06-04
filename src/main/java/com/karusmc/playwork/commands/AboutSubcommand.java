@@ -24,9 +24,8 @@ import org.bukkit.plugin.PluginDescriptionFile;
 /**
  *
  * @author PanteLegacy @ karusmc.com
- * Displays plugin information.
  */
-public class AboutSubcommand implements Subcommand, CommandUtil {
+public class AboutSubcommand implements SubcommandExecutor, CommandUtil {
     
     private PluginDescriptionFile pluginDescription;
     private Command meta;
@@ -49,12 +48,12 @@ public class AboutSubcommand implements Subcommand, CommandUtil {
     }
     
     @Override
-    public Command getMeta() {
+    public Command getCommand() {
         return meta;
     }
     
     @Override
-    public void setMeta(Command properties) {
+    public void setCommand(Command properties) {
         this.meta = properties;
     }
     
@@ -62,7 +61,6 @@ public class AboutSubcommand implements Subcommand, CommandUtil {
     @Override
     public void execute(CommandSender sender, String[] args) {
         
-        // Inheritied from CommandUtil
         if (!checkLength(sender, this, args, 1, 1)) return;
         if (!checkSender(sender, meta.getPermission())) return;
         
