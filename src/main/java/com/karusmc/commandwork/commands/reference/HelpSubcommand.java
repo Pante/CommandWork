@@ -14,11 +14,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.karusmc.playwork.commands.reference;
+package com.karusmc.commandwork.commands.reference;
 
-import com.karusmc.playwork.commands.CommandManager;
-import com.karusmc.playwork.commands.SubcommandExecutor;
-import com.karusmc.playwork.commands.CommandUtil;
+import com.karusmc.commandwork.commands.CommandManager;
+import com.karusmc.commandwork.commands.SubcommandExecutor;
+import com.karusmc.commandwork.commands.CommandUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
