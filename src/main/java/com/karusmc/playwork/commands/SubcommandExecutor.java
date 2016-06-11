@@ -29,6 +29,6 @@ public interface SubcommandExecutor {
     
     public Command getCommand();
     
-    public void setCommand(Command meta);
+    public void setCommand(Command command);
     
 }

@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.karusmc</groupId>
-    <artifactId>PlayWork</artifactId>
+    <artifactId>CommandWork</artifactId>
     <version>1.0</version>
     <packaging>jar</packaging>
     
@@ -30,7 +30,7 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.9-R0.1-SNAPSHOT</version>
+            <version>1.10-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         
@@ -38,22 +38,8 @@
         <dependency>
             <groupId>org.bukkit</groupId>
             <artifactId>bukkit</artifactId>
-            <version>1.9-R0.1-SNAPSHOT</version>
+            <version>1.10-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
-        </dependency>
-        
-        <!-- Apache Commons lang3 -->
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.4</version>
-            <type>jar</type>
-        </dependency>
-        
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.5</version>
         </dependency>
         
         <!-- Mockito for testing -->
@@ -61,6 +47,7 @@
             <groupId>org.mockito</groupId>
             <artifactId>mockito-all</artifactId>
             <version>1.9.5</version>
+            <scope>test</scope>
         </dependency>
         
         <!-- http://mvnrepository.com/artifact/org.powermock/powermock-module-junit4 -->
@@ -68,6 +55,7 @@
             <groupId>org.powermock</groupId>
             <artifactId>powermock-module-junit4</artifactId>
             <version>1.6.5</version>
+            <scope>test</scope>
         </dependency>
         
     </dependencies>
@@ -102,6 +90,6 @@
         
     </build>
     
-    <name>PlayWork</name>
+    <name>CommandWork</name>
     
 </project>

@@ -14,7 +14,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.karusmc.playwork.commands;
+package com.karusmc.playwork.commands.reference;
+
+import com.karusmc.playwork.commands.CommandManager;
+import com.karusmc.playwork.commands.SubcommandExecutor;
+import com.karusmc.playwork.commands.CommandUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -64,7 +68,7 @@ public class HelpSubcommand implements SubcommandExecutor, CommandUtil {
             conditions = (entry) -> entry.getKey().contains(args[1]) && sender.hasPermission(entry.getValue().getPermission());
         }
         
-        ArrayList<String> commands = new ArrayList<>(MainCommand.getRegisteredCommands().entrySet().stream()
+        ArrayList<String> commands = new ArrayList<>(CommandManager.getRegisteredCommands().entrySet().stream()
                 .filter(conditions::test).limit(page * SIZE)
                 .map(HashMap.Entry::getKey).collect(Collectors.toList()));
         
@@ -110,7 +114,7 @@ public class HelpSubcommand implements SubcommandExecutor, CommandUtil {
                     + " === Page: " + ChatColor.RED + page + "/" + totalPages + ChatColor.GOLD + " ====");
         
         IntStream.range(page * SIZE - SIZE, commands.size())
-        .forEach(i -> sender.sendMessage(ChatColor.GOLD + MainCommand.getRegisteredCommands().get(commands.get(i)).getUsage()));
+        .forEach(i -> sender.sendMessage(ChatColor.GOLD + CommandManager.getRegisteredCommands().get(commands.get(i)).getUsage()));
         
     }
     
