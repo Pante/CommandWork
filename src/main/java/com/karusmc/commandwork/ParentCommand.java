@@ -14,21 +14,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.karusmc.commandwork.commands;
-
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
+package com.karusmc.commandwork;
 
 /**
  *
  * @author PanteLegacy @ karusmc.com
  */
-public interface SubcommandExecutor {
+public interface ParentCommand {
     
-    public void execute(CommandSender sender, String[] args);
-    
-    public Command getCommand();
-    
-    public void setCommand(Command command);
+    public void registerSubcommand(Subcommand subcommand);
     
 }

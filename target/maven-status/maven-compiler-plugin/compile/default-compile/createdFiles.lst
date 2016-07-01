@@ -1,7 +1,0 @@
-com\karusmc\commandwork\commands\InvalidCommand.class
-com\karusmc\commandwork\commands\reference\HelpSubcommand.class
-com\karusmc\commandwork\commands\CommandUtil.class
-com\karusmc\commandwork\commands\reference\AboutSubcommand.class
-com\karusmc\commandwork\commands\reference\MainCommand.class
-com\karusmc\commandwork\commands\CommandManager.class
-com\karusmc\commandwork\commands\SubcommandExecutor.class

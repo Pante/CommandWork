@@ -1,7 +1,6 @@
-C:\Users\NPStudent\Documents\NetBeansProjects\CommandWork\src\main\java\com\karusmc\commandwork\commands\reference\HelpSubcommand.java
-C:\Users\NPStudent\Documents\NetBeansProjects\CommandWork\src\main\java\com\karusmc\commandwork\commands\reference\AboutSubcommand.java
-C:\Users\NPStudent\Documents\NetBeansProjects\CommandWork\src\main\java\com\karusmc\commandwork\commands\SubcommandExecutor.java
-C:\Users\NPStudent\Documents\NetBeansProjects\CommandWork\src\main\java\com\karusmc\commandwork\commands\CommandUtil.java
-C:\Users\NPStudent\Documents\NetBeansProjects\CommandWork\src\main\java\com\karusmc\commandwork\commands\reference\MainCommand.java
-C:\Users\NPStudent\Documents\NetBeansProjects\CommandWork\src\main\java\com\karusmc\commandwork\commands\CommandManager.java
-C:\Users\NPStudent\Documents\NetBeansProjects\CommandWork\src\main\java\com\karusmc\commandwork\commands\InvalidCommand.java
+C:\Users\NPStudent\Documents\NetBeansProjects\CommandWork\src\main\java\com\karusmc\commandwork\CommandUtility.java
+C:\Users\NPStudent\Documents\NetBeansProjects\CommandWork\src\main\java\com\karusmc\commandwork\reference\BaseCommand.java
+C:\Users\NPStudent\Documents\NetBeansProjects\CommandWork\src\main\java\com\karusmc\commandwork\reference\InvalidSubcommand.java
+C:\Users\NPStudent\Documents\NetBeansProjects\CommandWork\src\main\java\com\karusmc\commandwork\CommandManager.java
+C:\Users\NPStudent\Documents\NetBeansProjects\CommandWork\src\main\java\com\karusmc\commandwork\Subcommand.java
+C:\Users\NPStudent\Documents\NetBeansProjects\CommandWork\src\main\java\com\karusmc\commandwork\ParentCommand.java
