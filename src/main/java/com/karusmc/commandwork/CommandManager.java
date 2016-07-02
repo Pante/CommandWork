@@ -16,8 +16,10 @@
  */
 package com.karusmc.commandwork;
 
+import com.karusmc.commandwork.references.CommandHandler;
 import java.util.HashMap;
 import java.util.Map;
+import org.bukkit.command.Command;
 
 /**
  *
@@ -25,15 +27,17 @@ import java.util.Map;
  */
 public class CommandManager {
     
-    public static final Map<String, Subcommand> REGISTERED_COMMANDS = new HashMap<>();
+    public static final Map<String, Command> REGISTERED_COMMANDS = new HashMap<>();
     
-    public static void register(ParentCommand command, Subcommand subcommand) {
-        REGISTERED_COMMANDS.put(subcommand.getCommand().getName(), subcommand);
-        command.registerSubcommand(subcommand);
+    public static void register(CommandHandler handler, Subcommand command) {
+        Command bukkitCommand = command.getBukkitCommand();
+        REGISTERED_COMMANDS.put(bukkitCommand.getName(), bukkitCommand);
+        handler.register(command);
     }
     
-    public static void register(Subcommand subcommand) {
-        REGISTERED_COMMANDS.put(subcommand.getCommand().getName(), subcommand);
+    public static void register(Subcommand command ){
+        Command bukkitCommand = command.getBukkitCommand();
+        REGISTERED_COMMANDS.put(bukkitCommand.getName(), bukkitCommand);
     }
     
 }

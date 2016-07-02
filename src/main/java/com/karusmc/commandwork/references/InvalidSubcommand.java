@@ -14,14 +14,39 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.karusmc.commandwork;
+package com.karusmc.commandwork.references;
+
+import com.karusmc.commandwork.Subcommand;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
 
 /**
  *
  * @author PanteLegacy @ karusmc.com
  */
-public interface ParentCommand {
+public class InvalidSubcommand extends Subcommand {
     
-    public void registerSubcommand(Subcommand subcommand);
+    private String message;
+    
+    public InvalidSubcommand(String message) {
+        super(null);
+        this.message = message;
+    }
+    
+    
+    @Override
+    public void execute(CommandSender sender, String[] args) {
+        sender.sendMessage(message);
+    }
+    
+    @Override
+    public String getInfo() {
+        return message;
+    }
+    
+    @Override
+    public Command getBukkitCommand() {
+        throw new UnsupportedOperationException("Method: getBukkitCommad() was called on an instance of InvalidSubcommand.");
+    }
     
 }

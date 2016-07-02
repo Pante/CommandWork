@@ -29,16 +29,17 @@ public abstract class Subcommand {
     protected Command command;
     
     
-    protected Subcommand() {}
+    private Subcommand() {}
     
-    public Subcommand(Command command) {
+    protected Subcommand(Command command) {
         this.command = command;
     }
     
     
     public abstract void execute(CommandSender sender, String[] args);
     
-    public String formatInformation() {
+    
+    public String getInfo() {
         StringBuilder buffy = new StringBuilder();
         
         buffy.append("&6==== Help: &c").append(command.getName()).append("&6 ====");
@@ -46,17 +47,14 @@ public abstract class Subcommand {
         buffy.append("&6\nDescription: &c").append(command.getDescription());
         buffy.append("&6\nUsage: &c").append(command.getUsage());
         
-        String information = ChatColor.translateAlternateColorCodes('&', buffy.toString());
-        return information;
+        String info = ChatColor.translateAlternateColorCodes('&', buffy.toString());
+        
+        return info;
     }
     
     
-    public Command getCommand() {
+    public Command getBukkitCommand() {
         return command;
-    }
-    
-    public void setCommand(Command command) {
-        this.command = command;
     }
     
 }

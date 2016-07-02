@@ -30,8 +30,8 @@ public class CommandUtility {
     private CommandUtility() {}
     
     
-    public static boolean handleSenderIsPlayer(CommandSender sender) {
-        boolean senderIsPlayer = checkSenderIsPlayer(sender);
+    public static boolean checkSenderIsPlayer(CommandSender sender) {
+        boolean senderIsPlayer = sender instanceof Player;
         
         if (!senderIsPlayer) {
             sender.sendMessage("This is a player only command.");
@@ -39,14 +39,10 @@ public class CommandUtility {
         return senderIsPlayer;
         
     }
+   
     
-    public static boolean checkSenderIsPlayer(CommandSender sender) {
-        return sender instanceof Player;
-    }
-    
-    
-    public static boolean handleSenderHasPermission(CommandSender sender, String permission) {
-        boolean senderHasPermission = checkSenderHasPermission(sender, permission);
+    public static boolean checkSenderHasPermission(CommandSender sender, String permission) {
+        boolean senderHasPermission = sender.hasPermission(permission);
         
         if(!senderHasPermission) {
             sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
@@ -54,14 +50,11 @@ public class CommandUtility {
         return senderHasPermission;
         
     }
-    
-    public static boolean checkSenderHasPermission(CommandSender sender, String permission) {
-        return sender.hasPermission(permission);
-    }
+
     
     
-    public static boolean handleArgumentLength(CommandSender sender, Command cmd, int min, int length, int max) {
-        boolean lengthIsValid = checkArgumentLength(min, length, max);
+    public static boolean checkArgumentLength(CommandSender sender, Command cmd, int min, int length, int max) {
+        boolean lengthIsValid = CommandUtility.checkArgumentLength(min, length, max);
         
         if(!lengthIsValid) {
             sender.sendMessage(ChatColor.RED + cmd.getUsage());
