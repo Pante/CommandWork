@@ -14,10 +14,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.karusmc.commandwork.references;
+package com.karusmc.commandwork.reference;
 
 import com.karusmc.commandwork.Subcommand;
-import org.bukkit.command.Command;
+
+import java.util.Collections;
+import java.util.List;
+
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
 /**
@@ -26,27 +30,60 @@ import org.bukkit.command.CommandSender;
  */
 public class InvalidSubcommand extends Subcommand {
     
-    private String message;
+    private String help;
     
-    public InvalidSubcommand(String message) {
+    
+    public InvalidSubcommand() {
         super(null);
-        this.message = message;
+        help = ChatColor.RED + "Invalid command.";
+    }
+    
+    public InvalidSubcommand(String help) {
+        super(null);
+        this.help = help;
     }
     
     
     @Override
     public void execute(CommandSender sender, String[] args) {
-        sender.sendMessage(message);
+        sender.sendMessage(help);
     }
     
     @Override
-    public String getInfo() {
-        return message;
+    public String getInfo(CommandSender sender) {
+        return help;
+    }
+    
+    
+    @Override
+    public String getName() {
+        return help;
     }
     
     @Override
-    public Command getBukkitCommand() {
-        throw new UnsupportedOperationException("Method: getBukkitCommad() was called on an instance of InvalidSubcommand.");
+    public String getDescription() {
+        return help;
+    }
+    
+    @Override
+    public String getUsage() {
+        return help;
+    }
+    
+    @Override
+    public String getPermission() {
+        return "Invalid.Permission.";
+    }
+    
+    @Override
+    public List<String> getAliases() {
+        return Collections.emptyList();
+    }
+    
+    
+    @Override
+    public String getTabCompleteName() {
+        return help;
     }
     
 }

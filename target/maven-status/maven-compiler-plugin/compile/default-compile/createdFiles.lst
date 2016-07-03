@@ -1,4 +1,5 @@
+com\karusmc\commandwork\CommandManager.class
+com\karusmc\commandwork\reference\InvalidSubcommand.class
 com\karusmc\commandwork\Subcommand.class
 com\karusmc\commandwork\CommandUtility.class
-com\karusmc\commandwork\references\InvalidSubcommand.class
-com\karusmc\commandwork\references\CommandHandler.class
+com\karusmc\commandwork\reference\CommandHandler.class

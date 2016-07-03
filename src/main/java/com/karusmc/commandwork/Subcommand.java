@@ -16,6 +16,8 @@
  */
 package com.karusmc.commandwork;
 
+import java.util.List;
+
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -31,7 +33,7 @@ public abstract class Subcommand {
     
     private Subcommand() {}
     
-    protected Subcommand(Command command) {
+    public Subcommand(Command command) {
         this.command = command;
     }
     
@@ -39,22 +41,48 @@ public abstract class Subcommand {
     public abstract void execute(CommandSender sender, String[] args);
     
     
-    public String getInfo() {
-        StringBuilder buffy = new StringBuilder();
+    public String getInfo(CommandSender sender) {
+        if (sender.hasPermission(command.getPermission())) {
+            StringBuilder buffy = new StringBuilder();
+
+            buffy.append("&6==== Help: &c").append(command.getName()).append("&6 ====");
+            buffy.append("\nAliases: &c").append(command.getAliases().toString());
+            buffy.append("&6\nDescription: &c").append(command.getDescription());
+            buffy.append("&6\nUsage: &c").append(command.getUsage());
+
+            String info = ChatColor.translateAlternateColorCodes('&', buffy.toString());
+
+            return info;
+        } else {
+            return ChatColor.RED + "You do not have permission to use this command.";
+        }
         
-        buffy.append("&6==== Help: &c").append(command.getName()).append("&6 ====");
-        buffy.append("\nAliases: &c").append(command.getAliases().toString());
-        buffy.append("&6\nDescription: &c").append(command.getDescription());
-        buffy.append("&6\nUsage: &c").append(command.getUsage());
-        
-        String info = ChatColor.translateAlternateColorCodes('&', buffy.toString());
-        
-        return info;
     }
     
     
-    public Command getBukkitCommand() {
-        return command;
+    public String getName() {
+        return command.getName();
+    }
+    
+    public String getDescription() {
+        return command.getDescription();
+    }
+    
+    public String getUsage() {
+        return command.getUsage();
+    }
+    
+    public String getPermission() {
+        return command.getPermission();
+    }
+    
+    public List<String> getAliases() {
+        return command.getAliases();
+    }
+    
+    
+    public String getTabCompleteName() {
+        return command.getAliases().get(0);
     }
     
 }

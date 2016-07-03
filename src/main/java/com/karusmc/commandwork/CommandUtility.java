@@ -17,7 +17,6 @@
 package com.karusmc.commandwork;
 
 import org.bukkit.ChatColor;
-import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -47,24 +46,22 @@ public class CommandUtility {
         if(!senderHasPermission) {
             sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
         }
+        
         return senderHasPermission;
         
     }
 
     
     
-    public static boolean checkArgumentLength(CommandSender sender, Command cmd, int min, int length, int max) {
-        boolean lengthIsValid = CommandUtility.checkArgumentLength(min, length, max);
+    public static boolean checkArgumentLength(CommandSender sender, Subcommand command, int min, int length, int max) {
+        boolean lengthIsValid = length >= min && length <= max;
         
         if(!lengthIsValid) {
-            sender.sendMessage(ChatColor.RED + cmd.getUsage());
+            sender.sendMessage(ChatColor.RED + command.getUsage());
         }
+        
         return lengthIsValid;
         
     }
-    
-    public static boolean checkArgumentLength(int min, int length, int max) {
-        return (length >= min && length <= max && length >= 0);
-    }
-    
+
 }

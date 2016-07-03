@@ -14,16 +14,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.karusmc.commandwork.references;
+package com.karusmc.commandwork.reference;
 
 import com.karusmc.commandwork.Subcommand;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
@@ -36,40 +34,51 @@ public class CommandHandler implements TabExecutor {
     
     private Map<String, Subcommand> commands;
     private List<String> commandNames;
-    private Subcommand invalidCommandHandler;
+    private Subcommand invalidHandler;
     
     
-    private CommandHandler() {}
-    
-    public CommandHandler(Subcommand invalidCommandHandler) {
+    public CommandHandler() {
         commands = new HashMap<>();
         commandNames = new ArrayList<>();
         
-        this.invalidCommandHandler = invalidCommandHandler;
+        invalidHandler = new InvalidSubcommand();
     }
     
     public CommandHandler(String message) {
         commands = new HashMap<>();
         commandNames = new ArrayList<>();
         
-        invalidCommandHandler = new InvalidSubcommand(message);
+        invalidHandler = new InvalidSubcommand(message);
+    }
+    
+    public CommandHandler(Subcommand invalidHandler) {
+        commands = new HashMap<>();
+        commandNames = new ArrayList<>();
+        
+        this.invalidHandler = invalidHandler;
     }
     
     
     public void register(Subcommand command) {
-        command.getBukkitCommand().getAliases().stream().forEach(alias -> commands.put(alias, command));
-        commandNames.add(command.getBukkitCommand().getAliases().get(0));
+        command.getAliases().stream().forEach(alias -> commands.put(alias, command));
+        commandNames.add(command.getTabCompleteName());
+    }
+    
+    public void unregister(Subcommand command) {
+        command.getAliases().stream().forEach(alias -> commands.remove(alias, command));
+        commandNames.remove(command.getTabCompleteName());
     }
 
+    
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
         if (args.length == 0) {
             return null;
             
         } else {
-            String givenName = args[args.length - 1];
+            String criteria = args[args.length - 1];
             
-            List<String> results = commandNames.stream().filter(name -> name.startsWith(givenName)).collect(Collectors.toList());
+            List<String> results = commandNames.stream().filter(name -> name.startsWith(criteria)).collect(Collectors.toList());
             return results;
         }
     }
@@ -77,31 +86,30 @@ public class CommandHandler implements TabExecutor {
     
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (args.length == 0) {
-            handleCommand(sender, label, args);
+        
+        if (args.length != 0 && args[args.length - 1].equalsIgnoreCase("?")) {
             
-        } else if (args[args.length - 1].equals("?")) {
-            handleHelpRequest(sender, label, args);
+            String info = searchForCommand(label, args, 1).getInfo(sender);
+            sender.sendMessage(info);
             
         } else {
-            handleCommand(sender, args[args.length - 1], args);
+            searchForCommand(label, args, 0).execute(sender, args);
         }
         
         return true;
     }
     
-    private void handleHelpRequest(CommandSender sender, String label, String[] args) {
-        if (args.length == 1) {
-            sender.sendMessage(commands.getOrDefault(label, invalidCommandHandler).getInfo());
-            
+    
+    private Subcommand searchForCommand(String label, String[] args, int index) {
+        String criteria;
+        
+        if (args.length == index) {
+            criteria = label;
         } else {
-            sender.sendMessage(commands.getOrDefault(args[args.length - 2], invalidCommandHandler).getInfo());
+            criteria = args[args.length - 1 - index];
         }
+        
+        return commands.getOrDefault(criteria, invalidHandler);
     }
-    
-    private void handleCommand(CommandSender sender, String name, String args[]) {
-        commands.getOrDefault(name, invalidCommandHandler).execute(sender, args);
-    }
-    
     
 }
