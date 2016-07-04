@@ -33,31 +33,8 @@ public class CommandManagerTest {
     
     CommandHandler handler = mock(CommandHandler.class);
     MockSubcommand command = new MockSubcommand();
-    
-    
-    @Test
-    public void register_putsCommandInRegisteredCommands() {
-        register(command);
-        
-        boolean expected = REGISTERED_COMMANDS.containsKey(command.getName());
-        
-        assertTrue(expected);
-    }
-    
-    
-    @Test
-    public void unregister_removesCommand() {
-        REGISTERED_COMMANDS.put(command.getName(), command);
-        unregister(command);
-        
-        boolean expected = !REGISTERED_COMMANDS.containsKey(command.getName()) && !REGISTERED_COMMANDS.containsValue(command);
-        
-        assertTrue(expected);
-        
-    }
-    
-    
-    
+   
+     
     @Test
     public void register_callsHandlerRegister() {
         register(handler, command);

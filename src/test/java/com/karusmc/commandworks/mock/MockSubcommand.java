@@ -18,8 +18,6 @@ package com.karusmc.commandworks.mock;
 
 import com.karusmc.commandwork.Subcommand;
 
-import java.util.Collections;
-import java.util.List;
 
 import org.bukkit.command.CommandSender;
 
@@ -29,19 +27,27 @@ import org.bukkit.command.CommandSender;
  */
 public class MockSubcommand extends Subcommand {
     
+    private String message;
+    
     public MockSubcommand() {
         super(MockBukkitObjectFactory.mockCommand());
+        message = "Mock command executed";
+    }
+    
+    public MockSubcommand(String message) {
+        super(MockBukkitObjectFactory.mockCommand());
+        this.message = message;
     }
     
     @Override
     public void execute(CommandSender sender, String[] args) {
-        sender.sendMessage("Mock command executed.");
+        sender.sendMessage(message);
     }
     
     
     @Override
     public String getInfo(CommandSender sender) {
-        return "Mock information.";
+        return "Mock information";
     }
         
 }

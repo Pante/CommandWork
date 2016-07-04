@@ -28,17 +28,17 @@ import org.bukkit.command.CommandSender;
  *
  * @author PanteLegacy @ karusmc.com
  */
-public class InvalidSubcommand extends Subcommand {
+public class InvalidSubcommandHandler extends Subcommand {
     
     private String help;
     
     
-    public InvalidSubcommand() {
+    public InvalidSubcommandHandler() {
         super(null);
         help = ChatColor.RED + "Invalid command.";
     }
     
-    public InvalidSubcommand(String help) {
+    public InvalidSubcommandHandler(String help) {
         super(null);
         this.help = help;
     }

@@ -29,39 +29,42 @@ public class CommandUtility {
     private CommandUtility() {}
     
     
-    public static boolean checkSenderIsPlayer(CommandSender sender) {
-        boolean senderIsPlayer = sender instanceof Player;
+    public static boolean handleSenderIsPlayer(CommandSender sender) {
         
-        if (!senderIsPlayer) {
+        if (sender instanceof Player) {
+            return true;
+            
+        } else {
             sender.sendMessage("This is a player only command.");
+            return false;
         }
-        return senderIsPlayer;
         
     }
    
     
-    public static boolean checkSenderHasPermission(CommandSender sender, String permission) {
-        boolean senderHasPermission = sender.hasPermission(permission);
+    public static boolean handleSenderHasPermission(CommandSender sender, String permission) {
         
-        if(!senderHasPermission) {
+        if(sender.hasPermission(permission)) {
+            return true;
+            
+        } else {
             sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
+            return false;
         }
         
-        return senderHasPermission;
-        
     }
-
     
     
-    public static boolean checkArgumentLength(CommandSender sender, Subcommand command, int min, int length, int max) {
-        boolean lengthIsValid = length >= min && length <= max;
+    public static boolean handleArgumentLength(CommandSender sender, Subcommand command, int min, int length, int max) {
         
-        if(!lengthIsValid) {
+        if(length >= min && length <= max) {
+            return true;
+            
+        } else {
             sender.sendMessage(ChatColor.RED + command.getUsage());
+            return false;
         }
         
-        return lengthIsValid;
-        
     }
-
+    
 }

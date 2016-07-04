@@ -36,18 +36,10 @@ public class CommandManager {
         handler.register(command);
     }
     
-    public static void register(Subcommand command ){
-        REGISTERED_COMMANDS.put(command.getName(), command);
-    }
-    
     
     public static void unregister(CommandHandler handler, Subcommand command) {
         REGISTERED_COMMANDS.remove(command.getName());
         handler.unregister(command);
-    }
-    
-    public static void unregister(Subcommand command) {
-        REGISTERED_COMMANDS.remove(command.getName());
     }
     
 }

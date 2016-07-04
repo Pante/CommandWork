@@ -34,48 +34,48 @@ import static org.mockito.Mockito.*;
  */
 public class CommandUtilityTest {
     
+    
     @Test
-    public void checkSenderIsPlayer_returnsFalse() {
+    public void handleSenderIsPlayer_returnsFalse() {
         CommandSender sender = mockSender(true);
         
-        boolean returned = CommandUtility.checkSenderIsPlayer(sender);
+        boolean returned = CommandUtility.handleSenderIsPlayer(sender);
         
         verify(sender, times(1)).sendMessage("This is a player only command.");
-        
+       
         assertFalse(returned);
     }
     
-    
+        
     @Test
-    public void checkSenderIsPlayer_returnsTrue() {
+    public void handleSenderIsPlayer_returnsTrue() {
         CommandSender sender = mockPlayer(true);
         
-        boolean returned = CommandUtility.checkSenderIsPlayer(sender);
+        boolean returned = CommandUtility.handleSenderIsPlayer(sender);
         
         verify(sender, times(0)).sendMessage("This is a player only command");
         
         assertTrue(returned);
     }
     
-    
-    
+        
+        
     @Test
-    public void checkSenderHasPermission_returnsFalse() {
+    public void handleSenderHasPermission_callsSendMessage() {
         CommandSender sender = mockSender(false);
         
-        boolean returned = CommandUtility.checkSenderHasPermission(sender, MOCK_PERMISSION);
+        CommandUtility.handleSenderHasPermission(sender, MOCK_PERMISSION);
         
         verify(sender, times(1)).sendMessage(ChatColor.RED + "You do not have permission to use this command.");
         
-        assertFalse(returned);
     }
     
-    
+        
     @Test
-    public void checkSenderHasPermission_returnsTrue() {
+    public void handleSenderHasPermission_returnsTrue() {
         CommandSender sender = mockSender(true);
         
-        boolean returned = CommandUtility.checkSenderHasPermission(sender, MOCK_PERMISSION);
+        boolean returned = CommandUtility.handleSenderHasPermission(sender, MOCK_PERMISSION);
         
         verify(sender, times(0)).sendMessage(ChatColor.RED + "You do not have permission to use this command.");
         
@@ -83,15 +83,15 @@ public class CommandUtilityTest {
     }
     
     
-    
+        
     @Test
     public void checkArgumentLength_returnTrue() {
         
         CommandSender sender = mockSender(true);
         MockSubcommand command = new MockSubcommand();
         
-        boolean returnedLower = CommandUtility.checkArgumentLength(sender, command, 1, 1, 3);
-        boolean returnedUpper = CommandUtility.checkArgumentLength(sender, command, 1, 3, 3);
+        boolean returnedLower = CommandUtility.handleArgumentLength(sender, command, 1, 1, 3);
+        boolean returnedUpper = CommandUtility.handleArgumentLength(sender, command, 1, 3, 3);
         
         verify(sender, times(0)).sendMessage(ChatColor.RED + command.getUsage());
         
@@ -106,9 +106,9 @@ public class CommandUtilityTest {
         
         CommandSender sender = mockSender(true);
         MockSubcommand command = new MockSubcommand();
-        
-        boolean returnedLower = CommandUtility.checkArgumentLength(sender, command, 1, 0, 3);
-        boolean returnedUpper = CommandUtility.checkArgumentLength(sender, command, 1, 4, 3);
+
+        boolean returnedLower = CommandUtility.handleArgumentLength(sender, command, 1, 0, 3);
+        boolean returnedUpper = CommandUtility.handleArgumentLength(sender, command, 1, 4, 3);
         
         verify(sender, times(2)).sendMessage(ChatColor.RED + command.getUsage());
         

@@ -17,11 +17,13 @@
 package com.karusmc.commandwork.reference;
 
 import com.karusmc.commandwork.Subcommand;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
@@ -41,14 +43,14 @@ public class CommandHandler implements TabExecutor {
         commands = new HashMap<>();
         commandNames = new ArrayList<>();
         
-        invalidHandler = new InvalidSubcommand();
+        invalidHandler = new InvalidSubcommandHandler();
     }
     
     public CommandHandler(String message) {
         commands = new HashMap<>();
         commandNames = new ArrayList<>();
         
-        invalidHandler = new InvalidSubcommand(message);
+        invalidHandler = new InvalidSubcommandHandler(message);
     }
     
     public CommandHandler(Subcommand invalidHandler) {
@@ -100,13 +102,13 @@ public class CommandHandler implements TabExecutor {
     }
     
     
-    private Subcommand searchForCommand(String label, String[] args, int index) {
+    private Subcommand searchForCommand(String label, String[] args, int minArgumentNeeded) {
         String criteria;
         
-        if (args.length == index) {
+        if (args.length == minArgumentNeeded) {
             criteria = label;
         } else {
-            criteria = args[args.length - 1 - index];
+            criteria = args[args.length - 1 - minArgumentNeeded];
         }
         
         return commands.getOrDefault(criteria, invalidHandler);
