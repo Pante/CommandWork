@@ -26,6 +26,11 @@ import org.bukkit.entity.Player;
  */
 public class CommandUtility {
     
+    public static String notPlayerMessage = "This is a player only command.";
+    public static String noPermissionMessage = ChatColor.RED + "You do not have permission to use this command.";
+    public static String invalidArgumentLengthMessage = "Invalid number of arguments.";
+    
+    
     private CommandUtility() {}
     
     
@@ -35,7 +40,7 @@ public class CommandUtility {
             return true;
             
         } else {
-            sender.sendMessage("This is a player only command.");
+            sender.sendMessage(notPlayerMessage);
             return false;
         }
         
@@ -48,20 +53,20 @@ public class CommandUtility {
             return true;
             
         } else {
-            sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
+            sender.sendMessage(noPermissionMessage);
             return false;
         }
         
     }
     
     
-    public static boolean handleArgumentLength(CommandSender sender, Subcommand command, int min, int length, int max) {
+    public static boolean handleArgumentLength(CommandSender sender, int min, int length, int max) {
         
         if(length >= min && length <= max) {
             return true;
             
         } else {
-            sender.sendMessage(ChatColor.RED + command.getUsage());
+            sender.sendMessage(invalidArgumentLengthMessage);
             return false;
         }
         

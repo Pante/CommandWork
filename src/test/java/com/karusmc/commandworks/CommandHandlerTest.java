@@ -14,10 +14,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.karusmc.commandworks.references;
+package com.karusmc.commandworks;
 
 import com.karusmc.commandwork.Subcommand;
-import com.karusmc.commandwork.reference.CommandHandler;
+import com.karusmc.commandwork.CommandHandler;
 
 import com.karusmc.commandworks.mock.MockSubcommand;
 

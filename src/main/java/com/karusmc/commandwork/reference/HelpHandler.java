@@ -14,31 +14,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.karusmc.commandwork;
-
-
-import java.util.HashMap;
-import java.util.Map;
-
+package com.karusmc.commandwork.reference;
 
 /**
  *
  * @author PanteLegacy @ karusmc.com
  */
-public class CommandManager {
-    
-    public static final Map<String, Subcommand> REGISTERED_COMMANDS = new HashMap<>();
-    
-    
-    public static void register(CommandHandler handler, Subcommand command) {
-        REGISTERED_COMMANDS.put(command.getName(), command);
-        handler.register(command);
-    }
-    
-    
-    public static void unregister(CommandHandler handler, Subcommand command) {
-        REGISTERED_COMMANDS.remove(command.getName());
-        handler.unregister(command);
-    }
+public class HelpHandler {
     
 }

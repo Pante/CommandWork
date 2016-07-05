@@ -16,7 +16,7 @@
  */
 package com.karusmc.commandworks;
 
-import com.karusmc.commandwork.reference.CommandHandler;
+import com.karusmc.commandwork.CommandHandler;
 import com.karusmc.commandworks.mock.MockSubcommand;
 
 import org.junit.Test;

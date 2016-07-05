@@ -41,7 +41,7 @@ public class CommandUtilityTest {
         
         boolean returned = CommandUtility.handleSenderIsPlayer(sender);
         
-        verify(sender, times(1)).sendMessage("This is a player only command.");
+        verify(sender, times(1)).sendMessage(CommandUtility.notPlayerMessage);
        
         assertFalse(returned);
     }
@@ -53,7 +53,7 @@ public class CommandUtilityTest {
         
         boolean returned = CommandUtility.handleSenderIsPlayer(sender);
         
-        verify(sender, times(0)).sendMessage("This is a player only command");
+        verify(sender, times(0)).sendMessage(CommandUtility.notPlayerMessage);
         
         assertTrue(returned);
     }
@@ -66,7 +66,7 @@ public class CommandUtilityTest {
         
         CommandUtility.handleSenderHasPermission(sender, MOCK_PERMISSION);
         
-        verify(sender, times(1)).sendMessage(ChatColor.RED + "You do not have permission to use this command.");
+        verify(sender, times(1)).sendMessage(CommandUtility.noPermissionMessage);
         
     }
     
@@ -77,7 +77,7 @@ public class CommandUtilityTest {
         
         boolean returned = CommandUtility.handleSenderHasPermission(sender, MOCK_PERMISSION);
         
-        verify(sender, times(0)).sendMessage(ChatColor.RED + "You do not have permission to use this command.");
+        verify(sender, times(0)).sendMessage(CommandUtility.noPermissionMessage);
         
         assertTrue(returned);
     }
@@ -88,12 +88,11 @@ public class CommandUtilityTest {
     public void checkArgumentLength_returnTrue() {
         
         CommandSender sender = mockSender(true);
-        MockSubcommand command = new MockSubcommand();
         
-        boolean returnedLower = CommandUtility.handleArgumentLength(sender, command, 1, 1, 3);
-        boolean returnedUpper = CommandUtility.handleArgumentLength(sender, command, 1, 3, 3);
+        boolean returnedLower = CommandUtility.handleArgumentLength(sender, 1, 1, 3);
+        boolean returnedUpper = CommandUtility.handleArgumentLength(sender, 1, 3, 3);
         
-        verify(sender, times(0)).sendMessage(ChatColor.RED + command.getUsage());
+        verify(sender, times(0)).sendMessage(CommandUtility.invalidArgumentLengthMessage);
         
         assertTrue(returnedLower);
         assertTrue(returnedUpper);
@@ -105,12 +104,11 @@ public class CommandUtilityTest {
     public void checkArgumentLength_returnsFalse() {
         
         CommandSender sender = mockSender(true);
-        MockSubcommand command = new MockSubcommand();
 
-        boolean returnedLower = CommandUtility.handleArgumentLength(sender, command, 1, 0, 3);
-        boolean returnedUpper = CommandUtility.handleArgumentLength(sender, command, 1, 4, 3);
+        boolean returnedLower = CommandUtility.handleArgumentLength(sender, 1, 0, 3);
+        boolean returnedUpper = CommandUtility.handleArgumentLength(sender, 1, 4, 3);
         
-        verify(sender, times(2)).sendMessage(ChatColor.RED + command.getUsage());
+        verify(sender, times(2)).sendMessage(CommandUtility.invalidArgumentLengthMessage);
         
         assertFalse(returnedLower);
         assertFalse(returnedUpper);
