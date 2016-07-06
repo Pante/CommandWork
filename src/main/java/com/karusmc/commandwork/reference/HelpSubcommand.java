@@ -18,15 +18,16 @@ package com.karusmc.commandwork.reference;
 
 import com.karusmc.commandwork.Subcommand;
 
-
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
-
 import java.util.List;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.Collection;
+
+import net.md_5.bungee.api.chat.TextComponent;
 
 import org.bukkit.ChatColor;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import static com.karusmc.commandwork.CommandUtility.*;
 
@@ -34,91 +35,84 @@ import static com.karusmc.commandwork.CommandUtility.*;
  *
  * @author PanteLegacy @ karusmc.com
  */
-public class HelpSubcommand extends Subcommand {
+public class HelpSubcommand extends Subcommand  {
     
-    private static int SIZE = 3;
-    private List<Subcommand> commands;
-   
+    private final int SIZE = 3;
+    private Collection<Subcommand> commands;
+    private HelpParser parser;
+    private HelpComponentBuilder builder;
+    
     
     private HelpSubcommand() {
         super(null);
     }
     
-    public HelpSubcommand(Command command, List<Subcommand> commands) {
+    public HelpSubcommand(Command command, Collection<Subcommand> commands) {
         super(command);
         this.commands = commands;
-        
+        parser = new HelpParser();
+        builder = new HelpComponentBuilder();
+    }
+    
+    public HelpSubcommand(Command command, Collection<Subcommand> commands, HelpParser parser, HelpComponentBuilder builder) {
+        super(command);
+        this.commands = commands;
+        this.parser = parser;
+        this.builder = builder;
     }
 
     
     @Override
     public void execute(CommandSender sender, String[] args) {
         
-        if (!handleSenderHasPermission(sender, command.getPermission()) || !handleArgumentLength(sender, 0, args.length, 2)) {
+        if (!handleSenderHasPermission(sender, command.getPermission()) || !handleArgumentLength(sender, 1, args.length, 3)) {
+            return;
+        }   
+        
+        String criteria = parser.getSearchCriteria(args);
+        int page = parser.getCurrentPage(args);
+        
+        List<String> commandUsages = commands.stream()
+                .filter(parser.getPredicate(sender, criteria))
+                .map(subcommand -> ChatColor.GOLD + subcommand.getUsage())
+                .collect(Collectors.toList());
+        
+        int totalPages = parser.getTotalPages(commandUsages.size(), SIZE);
+        
+        if (page <= totalPages) {
+            printCommandUsages(sender, page, totalPages, criteria, commandUsages);
+        } else {
+            sender.sendMessage(ChatColor.RED + "No matches found.");
             return;
         }
         
-        int page = parsePageNumber(args);
-        
-        List<String> filteredCommands = filterCommands(sender, args);
-        int totalPages = getTotalPages(filteredCommands);
-        
-        if (page <= totalPages) {
+        if (sender instanceof Player) {
             
-        } else {
+            Player player = (Player) sender;
+            
+            TextComponent back = builder.buildBackButton(criteria, page);
+            TextComponent next = builder.buildNextButton(criteria, page);
+            
+            if (page - 1 < 1) {
+                back = builder.getBlankSpace();
+            }
+            
+            if (page + 1 > totalPages) {
+                next = builder.getBlankSpace();
+            }
+            
+            player.spigot().sendMessage(back, builder.getWhiteSpace(), next);
             
         }
         
     }
     
-    private int parsePageNumber(String[] args) {
-        int page = 1;
+    private void printCommandUsages(CommandSender sender, int page, int totalPages, String search, List<String> subcommands) {
+        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6==== Help: &c" + search
+                + " &6=== Page: &c" + page + "/" + totalPages + " &6===="));
         
-        if (args.length != 0) {
-            try {
-                page = Integer.parseInt(args[args.length - 1]);
-            } catch (NumberFormatException e) {}
-        }
-
-        return page;
-    }
+        sender.sendMessage(subcommands.subList(page * SIZE - SIZE, Math.min(page * SIZE, subcommands.size())).toArray(new String[0]));
     
-    private List<String> filterCommands(CommandSender sender, String[] args) {
-        Predicate<Subcommand> criteria;
-        
-        if (args.length <= 1 ) {
-            criteria = (subcommand) -> sender.hasPermission(subcommand.getPermission());
-            
-        } else {
-            criteria = (subcommand) -> sender.hasPermission(subcommand.getPermission()) && subcommand.getName().startsWith(args[args.length - 2]);
-        }
-        
-        return commands.stream().filter(criteria).limit(page * SIZE).map(Subcommand::getUsage).collect(Collectors.toList());
-    }
-    
-    
-    private int getTotalPages(List<String> returnedCommands) {
-        
-        if (returnedCommands.isEmpty()) {
-            return 0;
-        } else {
-            return (int) Math.max(1, Math.floor(returnedCommands.size() / SIZE));
-        }
-  
-    }
-    
-    private void printCommands(CommandSender sender, int page, int totalPages, String[] args, List<String> subcommands) {
-        String helpTopic;
-        if (args.length <= 1) {
-            helpTopic = "All";
-        } else {
-            helpTopic = args[1];
-        }
-        
-        sender.sendMessage(ChatColor.GOLD + "==== Help: " + ChatColor.RED + helpTopic + ChatColor.GOLD 
-                    + " === Page: " + ChatColor.RED + page + "/" + totalPages + ChatColor.GOLD + " ====");
-        
-        sender.sendMessage(subcommands.subList(page * SIZE - SIZE, page * SIZE).toArray(new String[0]));
     }
     
 }

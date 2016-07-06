@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.karusmc.commandworks;
+package com.karusmc.commandwork;
 
 import com.karusmc.commandwork.Subcommand;
 
@@ -24,7 +24,7 @@ import org.bukkit.command.CommandSender;
 
 import org.junit.Test;
 
-import static com.karusmc.commandworks.mock.MockBukkitObjectFactory.*;
+import static com.karusmc.commandwork.mock.MockBukkitObjectFactory.*;
 import static org.junit.Assert.*;
 
 /**

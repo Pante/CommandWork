@@ -14,12 +14,40 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.karusmc.commandwork.reference;
+package com.karusmc.commandwork.mock;
+
+import com.karusmc.commandwork.Subcommand;
+
+
+import org.bukkit.command.CommandSender;
 
 /**
  *
  * @author PanteLegacy @ karusmc.com
  */
-public class HelpHandler {
+public class MockSubcommand extends Subcommand {
     
+    private String message;
+    
+    public MockSubcommand() {
+        super(MockBukkitObjectFactory.mockCommand());
+        message = "Mock command executed";
+    }
+    
+    public MockSubcommand(String message) {
+        super(MockBukkitObjectFactory.mockCommand());
+        this.message = message;
+    }
+    
+    @Override
+    public void execute(CommandSender sender, String[] args) {
+        sender.sendMessage(message);
+    }
+    
+    
+    @Override
+    public String getInfo(CommandSender sender) {
+        return "Mock information";
+    }
+        
 }

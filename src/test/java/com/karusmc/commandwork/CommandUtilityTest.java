@@ -14,17 +14,17 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.karusmc.commandworks;
+package com.karusmc.commandwork;
 
 import com.karusmc.commandwork.CommandUtility;
-import com.karusmc.commandworks.mock.MockSubcommand;
+import com.karusmc.commandwork.mock.MockSubcommand;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.ChatColor;
 
 import org.junit.Test;
 
-import static com.karusmc.commandworks.mock.MockBukkitObjectFactory.*;
+import static com.karusmc.commandwork.mock.MockBukkitObjectFactory.*;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 

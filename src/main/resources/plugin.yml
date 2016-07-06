@@ -1,0 +1,24 @@
+name: CommandWork
+main: com.karusmc.commandwork.CommandWork
+version: 2.0.0
+description: CommandWork lib
+author: PanteLegacy, Danny
+commands:
+
+  commandwork:
+    aliases: [commandwork, cwork, commandw, cmdwork, cw]
+    description: Base commandwork command
+    usage: /commandwork [subcommand]
+    permission: commandwork.main
+    
+  "commandwork about":
+    aliases: [about, a]
+    description: About subcommand
+    usage: /commandwork about
+    permission: commandwork.about
+    
+  "commandwork help":
+    aliases: [help, h]
+    description: Help subcommand
+    usage: /commandwork help
+    permission: commandwork.help

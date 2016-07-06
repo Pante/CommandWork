@@ -14,12 +14,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.karusmc.commandworks;
+package com.karusmc.commandwork;
 
-import com.karusmc.commandwork.Subcommand;
-import com.karusmc.commandwork.CommandHandler;
 
-import com.karusmc.commandworks.mock.MockSubcommand;
+import com.karusmc.commandwork.mock.MockSubcommand;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -29,7 +27,7 @@ import org.bukkit.command.CommandSender;
 
 import org.junit.*;
 
-import static com.karusmc.commandworks.mock.MockBukkitObjectFactory.mockSender;
+import static com.karusmc.commandwork.mock.MockBukkitObjectFactory.mockSender;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 

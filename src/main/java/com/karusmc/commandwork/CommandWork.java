@@ -14,40 +14,36 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.karusmc.commandworks.mock;
+package com.karusmc.commandwork;
 
-import com.karusmc.commandwork.Subcommand;
+import com.karusmc.commandwork.reference.*;
 
-
-import org.bukkit.command.CommandSender;
+import org.bukkit.plugin.java.JavaPlugin;
 
 /**
  *
  * @author PanteLegacy @ karusmc.com
  */
-public class MockSubcommand extends Subcommand {
+public class CommandWork extends JavaPlugin {
     
-    private String message;
-    
-    public MockSubcommand() {
-        super(MockBukkitObjectFactory.mockCommand());
-        message = "Mock command executed";
-    }
-    
-    public MockSubcommand(String message) {
-        super(MockBukkitObjectFactory.mockCommand());
-        this.message = message;
-    }
+    private CommandHandler handler;
     
     @Override
-    public void execute(CommandSender sender, String[] args) {
-        sender.sendMessage(message);
-    }
-    
-    
-    @Override
-    public String getInfo(CommandSender sender) {
-        return "Mock information";
-    }
+    public void onEnable() {
         
+        getLogger().warning("CommandWork should never be running directly in a production server, maven-shade CommandWork instead");
+        
+        handler = new CommandHandler();
+
+        CommandManager.register(handler, new HelpSubcommand(getCommand("commandwork help"), CommandManager.REGISTERED_COMMANDS.values()));
+        CommandManager.register(handler, new AboutSubcommand(getCommand("commandwork about"), getDescription()));
+        
+        getCommand("commandwork").setExecutor(handler);
+    }
+
+    @Override
+    public void onDisable() {
+        
+    }
+    
 }

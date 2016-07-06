@@ -77,7 +77,7 @@ public class CommandHandler implements TabExecutor {
             return null;
             
         } else {
-            String criteria = args[args.length - 1];
+            String criteria = args[0];
             
             List<String> results = commandNames.stream().filter(name -> name.startsWith(criteria)).collect(Collectors.toList());
             return results;
@@ -88,8 +88,8 @@ public class CommandHandler implements TabExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         
-        if (args.length != 0 && args[args.length - 1].equalsIgnoreCase("?")) {
-            
+        
+        if (args.length > 0 && args[args.length - 1].equalsIgnoreCase("?")) {
             String info = searchForCommand(label, args, 1).getInfo(sender);
             sender.sendMessage(info);
             
@@ -101,13 +101,13 @@ public class CommandHandler implements TabExecutor {
     }
     
     
-    private Subcommand searchForCommand(String label, String[] args, int minArgumentNeeded) {
+    private Subcommand searchForCommand(String label, String[] args, int minLength) {
         String criteria;
         
-        if (args.length == minArgumentNeeded) {
+        if (args.length == minLength) {
             criteria = label;
         } else {
-            criteria = args[args.length - 1 - minArgumentNeeded];
+            criteria = args[0];
         }
         
         return commands.getOrDefault(criteria, invalidHandler);
