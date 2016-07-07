@@ -2,6 +2,7 @@ name: CommandWork
 main: com.karusmc.commandwork.CommandWork
 version: 2.0.0
 description: CommandWork lib
+website: https://github.com/Pante/CommandWork
 author: PanteLegacy, Danny
 commands:
 
@@ -12,13 +13,13 @@ commands:
     permission: commandwork.main
     
   "commandwork about":
-    aliases: [about, a]
+    aliases: [a]
     description: About subcommand
     usage: /commandwork about
     permission: commandwork.about
     
   "commandwork help":
-    aliases: [help, h]
+    aliases: [h]
     description: Help subcommand
     usage: /commandwork help
     permission: commandwork.help

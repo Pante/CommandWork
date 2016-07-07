@@ -26,9 +26,9 @@ import org.bukkit.entity.Player;
  */
 public class CommandUtility {
     
-    public static String notPlayerMessage = "This is a player only command.";
+    public static String notPlayerMessage = ChatColor.RED + "This is a player only command.";
     public static String noPermissionMessage = ChatColor.RED + "You do not have permission to use this command.";
-    public static String invalidArgumentLengthMessage = "Invalid number of arguments.";
+    public static String invalidArgumentLengthMessage = ChatColor.RED + "Invalid number of arguments.";
     
     
     private CommandUtility() {}

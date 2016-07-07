@@ -18,9 +18,10 @@ package com.karusmc.commandwork.reference;
 
 import com.karusmc.commandwork.Subcommand;
 
+import java.util.List;
+
 import org.bukkit.ChatColor;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
+import org.bukkit.command.*;
 import org.bukkit.plugin.PluginDescriptionFile;
 
 import static com.karusmc.commandwork.CommandUtility.*;
@@ -55,6 +56,19 @@ public class AboutSubcommand extends Subcommand {
         if (handleSenderHasPermission(sender, command.getPermission()) && handleArgumentLength(sender, 1, args.length, 1)) {
             sender.sendMessage(information);
         }
+    }
+    
+    
+    @Override
+    public List<String> getAliases() {
+        List<String> aliases = command.getAliases();
+        aliases.add("about");
+        return aliases;
+    }
+    
+    @Override
+    public String getTabCompleteName() {
+        return "about";
     }
     
 }

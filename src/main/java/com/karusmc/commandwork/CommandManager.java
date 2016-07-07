@@ -16,10 +16,7 @@
  */
 package com.karusmc.commandwork;
 
-
-import java.util.HashMap;
-import java.util.Map;
-
+import java.util.*;
 
 /**
  *

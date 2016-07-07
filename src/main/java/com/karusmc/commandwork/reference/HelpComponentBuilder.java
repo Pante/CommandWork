@@ -17,8 +17,7 @@
 package com.karusmc.commandwork.reference;
 
 import net.md_5.bungee.api.ChatColor;
-import net.md_5.bungee.api.chat.ClickEvent;
-import net.md_5.bungee.api.chat.TextComponent;
+import net.md_5.bungee.api.chat.*;
 
 /**
  *
@@ -35,11 +34,9 @@ public class HelpComponentBuilder {
         
         backButton = new TextComponent("<< Back");
         backButton.setColor(ChatColor.GOLD);
-        backButton.setBold(true);
         
         nextButton = new TextComponent("Next >>");
         nextButton.setColor(ChatColor.GOLD);
-        nextButton.setBold(true);
         
         whitespace = new TextComponent("                           ");
         blankspace = new TextComponent("       ");

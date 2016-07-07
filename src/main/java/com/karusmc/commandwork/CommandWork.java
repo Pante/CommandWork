@@ -31,13 +31,13 @@ public class CommandWork extends JavaPlugin {
     @Override
     public void onEnable() {
         
-        getLogger().warning("CommandWork should never be running directly in a production server, maven-shade CommandWork instead");
+        getLogger().warning("CommandWork should never be ran directly on a production server, maven-shade CommandWork instead");
         
         handler = new CommandHandler();
 
         CommandManager.register(handler, new HelpSubcommand(getCommand("commandwork help"), CommandManager.REGISTERED_COMMANDS.values()));
         CommandManager.register(handler, new AboutSubcommand(getCommand("commandwork about"), getDescription()));
-        
+
         getCommand("commandwork").setExecutor(handler);
     }
 

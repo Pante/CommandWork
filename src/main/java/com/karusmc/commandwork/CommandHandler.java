@@ -17,15 +17,10 @@
 package com.karusmc.commandwork;
 
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
-import org.bukkit.command.TabExecutor;
+import org.bukkit.command.*;
 
 /**
  *
@@ -35,28 +30,29 @@ public class CommandHandler implements TabExecutor {
     
     private Map<String, Subcommand> commands;
     private List<String> commandNames;
-    private Subcommand invalidHandler;
+    
+    private Subcommand invalidSubcommandHandler;
     
     
     public CommandHandler() {
         commands = new HashMap<>();
         commandNames = new ArrayList<>();
         
-        invalidHandler = new InvalidSubcommandHandler();
+        invalidSubcommandHandler = new InvalidSubcommandHandler();
     }
     
-    public CommandHandler(String message) {
+    public CommandHandler(String errorMessage) {
         commands = new HashMap<>();
         commandNames = new ArrayList<>();
         
-        invalidHandler = new InvalidSubcommandHandler(message);
+        invalidSubcommandHandler = new InvalidSubcommandHandler(errorMessage);
     }
     
-    public CommandHandler(Subcommand invalidHandler) {
+    public CommandHandler(Subcommand invalidSubcommandHandler) {
         commands = new HashMap<>();
         commandNames = new ArrayList<>();
         
-        this.invalidHandler = invalidHandler;
+        this.invalidSubcommandHandler = invalidSubcommandHandler;
     }
     
     
@@ -77,9 +73,10 @@ public class CommandHandler implements TabExecutor {
             return null;
             
         } else {
-            String criteria = args[0];
+            List<String> results = commandNames.stream()
+                    .filter(name -> name.startsWith(args[0]))
+                    .collect(Collectors.toList());
             
-            List<String> results = commandNames.stream().filter(name -> name.startsWith(criteria)).collect(Collectors.toList());
             return results;
         }
     }
@@ -87,7 +84,6 @@ public class CommandHandler implements TabExecutor {
     
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        
         
         if (args.length > 0 && args[args.length - 1].equalsIgnoreCase("?")) {
             String info = searchForCommand(label, args, 1).getInfo(sender);
@@ -110,7 +106,7 @@ public class CommandHandler implements TabExecutor {
             criteria = args[0];
         }
         
-        return commands.getOrDefault(criteria, invalidHandler);
+        return commands.getOrDefault(criteria, invalidSubcommandHandler);
     }
     
 }

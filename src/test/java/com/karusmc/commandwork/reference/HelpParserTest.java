@@ -19,12 +19,18 @@ package com.karusmc.commandwork.reference;
 import com.karusmc.commandwork.Subcommand;
 
 import java.util.function.Predicate;
+import java.util.Collection;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.bukkit.ChatColor;
 
 import org.junit.*;
 
 import com.karusmc.commandwork.mock.*;
 
 import static com.karusmc.commandwork.mock.MockBukkitObjectFactory.*;
+import static org.mockito.Mockito.*;
 import static org.junit.Assert.*;
 
 /**
@@ -101,6 +107,33 @@ public class HelpParserTest {
         boolean returned = test.test(command);
         
         assertFalse(returned);
+    }
+    
+    @Test
+    public void getCommandUsages_returns_filteredList() {
+
+        Predicate<Subcommand> test = subcommand -> subcommand.getUsage().equalsIgnoreCase("Mock usage 1");
+        
+        Collection<Subcommand> commands = new ArrayList<>();
+        
+        Subcommand command1 = mock(Subcommand.class);
+        Subcommand command2 = mock(Subcommand.class);
+        
+        when(command1.getUsage()).thenReturn("Mock usage 1");
+        when(command2.getUsage()).thenReturn("Mock usage 2");
+        
+        commands.add(command1);
+        commands.add(command2);
+        
+        List<String> commandUsages = parser.getCommandUsages(commands, test);
+       
+        
+        boolean returnedCommand1 = commandUsages.contains(ChatColor.GOLD + command1.getUsage());
+        boolean returnedCommand2 = commandUsages.contains(ChatColor.GOLD + command2.getUsage());
+        
+        assertTrue(returnedCommand1);
+        assertFalse(returnedCommand2);
+        
     }
     
     

@@ -18,15 +18,12 @@ package com.karusmc.commandwork.reference;
 
 import com.karusmc.commandwork.Subcommand;
 
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.Collection;
+import java.util.*;
 
 import net.md_5.bungee.api.chat.TextComponent;
 
 import org.bukkit.ChatColor;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
+import org.bukkit.command.*;
 import org.bukkit.entity.Player;
 
 import static com.karusmc.commandwork.CommandUtility.*;
@@ -72,37 +69,20 @@ public class HelpSubcommand extends Subcommand  {
         String criteria = parser.getSearchCriteria(args);
         int page = parser.getCurrentPage(args);
         
-        List<String> commandUsages = commands.stream()
-                .filter(parser.getPredicate(sender, criteria))
-                .map(subcommand -> ChatColor.GOLD + subcommand.getUsage())
-                .collect(Collectors.toList());
+        List<String> commandUsages = parser.getCommandUsages(commands, parser.getPredicate(sender, criteria));
         
         int totalPages = parser.getTotalPages(commandUsages.size(), SIZE);
         
-        if (page <= totalPages) {
-            printCommandUsages(sender, page, totalPages, criteria, commandUsages);
-        } else {
+        if (page > totalPages) {
             sender.sendMessage(ChatColor.RED + "No matches found.");
             return;
         }
         
+        printCommandUsages(sender, page, totalPages, criteria, commandUsages);
+        
         if (sender instanceof Player) {
-            
             Player player = (Player) sender;
-            
-            TextComponent back = builder.buildBackButton(criteria, page);
-            TextComponent next = builder.buildNextButton(criteria, page);
-            
-            if (page - 1 < 1) {
-                back = builder.getBlankSpace();
-            }
-            
-            if (page + 1 > totalPages) {
-                next = builder.getBlankSpace();
-            }
-            
-            player.spigot().sendMessage(back, builder.getWhiteSpace(), next);
-            
+            buildAndSendTextComponents(player, criteria, page, totalPages);
         }
         
     }
@@ -113,6 +93,38 @@ public class HelpSubcommand extends Subcommand  {
         
         sender.sendMessage(subcommands.subList(page * SIZE - SIZE, Math.min(page * SIZE, subcommands.size())).toArray(new String[0]));
     
+    }
+    
+    private void buildAndSendTextComponents(Player player, String criteria, int page, int totalPages) {
+        
+        TextComponent back = builder.buildBackButton(criteria, page);
+        TextComponent next = builder.buildNextButton(criteria, page);
+
+        if (page - 1 < 1) {
+            back = builder.getBlankSpace();
+        }
+
+        if (page + 1 > totalPages) {
+            next = builder.getBlankSpace();
+        }
+
+        player.spigot().sendMessage(back, builder.getWhiteSpace(), next);
+
+    }
+    
+    
+    
+    @Override
+    public List<String> getAliases() {
+        List<String> aliases = command.getAliases();
+        aliases.add("help");
+        return aliases;
+    }
+    
+    
+    @Override
+    public String getTabCompleteName() {
+        return "help";
     }
     
 }

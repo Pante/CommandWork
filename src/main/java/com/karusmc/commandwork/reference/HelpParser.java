@@ -18,10 +18,13 @@ package com.karusmc.commandwork.reference;
 
 import com.karusmc.commandwork.Subcommand;
 
+import java.util.*;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang.StringUtils;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
 /**
@@ -47,6 +50,13 @@ public class HelpParser {
             return (subcommand) -> sender.hasPermission(subcommand.getPermission()) && subcommand.getName().contains(searchCriteria);
         }
         
+    }
+    
+    public List<String> getCommandUsages(Collection<Subcommand> commands, Predicate<Subcommand> predicate) {
+        return commands.stream()
+                .filter(predicate)
+                .map(subcommand -> ChatColor.GOLD + subcommand.getUsage())
+                .collect(Collectors.toList());
     }
     
     

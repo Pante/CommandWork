@@ -16,10 +16,7 @@
  */
 package com.karusmc.commandwork;
 
-import com.karusmc.commandwork.Subcommand;
-
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
