@@ -16,7 +16,7 @@
  */
 package com.karusmc.commandwork;
 
-import java.util.List;
+import java.util.*;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.*;
@@ -25,37 +25,32 @@ import org.bukkit.command.*;
  *
  * @author PanteLegacy @ karusmc.com
  */
-public abstract class Subcommand {
+public abstract class CommandCallable {
     
     protected Command command;
     
     
-    private Subcommand() {}
+    private CommandCallable() {}
     
-    public Subcommand(Command command) {
+    public CommandCallable(Command command) {
         this.command = command;
     }
+            
+            
+    public abstract void call(CommandSender sender, String label, String[] args);
+    
+    public abstract boolean conditionsAreValid(CommandSender sender, String[] args);
     
     
-    public abstract void execute(CommandSender sender, String[] args);
-    
-    
-    public String getInfo(CommandSender sender) {
-        if (sender.hasPermission(command.getPermission())) {
-            StringBuilder buffy = new StringBuilder();
+    public String getInfo() {
+        StringBuilder buffy = new StringBuilder();
 
-            buffy.append("&6==== Help: &c").append(command.getName()).append("&6 ====");
-            buffy.append("\nAliases: &c").append(command.getAliases().toString());
-            buffy.append("&6\nDescription: &c").append(command.getDescription());
-            buffy.append("&6\nUsage: &c").append(command.getUsage());
+        buffy.append("&6==== Help: &c").append(getName()).append("&6 ====");
+        buffy.append("&6\nUsage: &c").append(getUsage());
+        buffy.append("&6\nDescription: &c").append(getDescription());
+        buffy.append("\nAliases: &c").append(getAliases().toString());
 
-            String info = ChatColor.translateAlternateColorCodes('&', buffy.toString());
-
-            return info;
-        } else {
-            return ChatColor.RED + "You do not have permission to use this command.";
-        }
-        
+        return ChatColor.translateAlternateColorCodes('&', buffy.toString());
     }
     
     
@@ -75,13 +70,13 @@ public abstract class Subcommand {
         return command.getPermission();
     }
     
-    public List<String> getAliases() {
-        return command.getAliases();
+    public String getTabCompleteName() {
+        return command.getAliases().get(0);
     }
     
     
-    public String getTabCompleteName() {
-        return command.getAliases().get(0);
+    public List<String> getAliases() {
+        return command.getAliases();
     }
     
 }

@@ -25,29 +25,37 @@ import org.bukkit.command.CommandSender;
  *
  * @author PanteLegacy @ karusmc.com
  */
-public class InvalidSubcommandHandler extends Subcommand {
+public class InvalidCommandHandler extends CommandCallable {
     
     private String help;
     
     
-    public InvalidSubcommandHandler() {
+    public InvalidCommandHandler() {
         super(null);
-        help = ChatColor.RED + "Invalid command.";
+        help = ChatColor.RED + "Invalid command!";
     }
     
-    public InvalidSubcommandHandler(String help) {
+    public InvalidCommandHandler(String help) {
         super(null);
         this.help = help;
     }
     
     
     @Override
-    public void execute(CommandSender sender, String[] args) {
+    public void call(CommandSender sender, String label, String[] args) {
         sender.sendMessage(help);
     }
+
     
     @Override
-    public String getInfo(CommandSender sender) {
+    public boolean conditionsAreValid(CommandSender sender, String[] args) {
+        sender.sendMessage(help);
+        return false;
+    }
+    
+    
+    @Override
+    public String getInfo() {
         return help;
     }
     

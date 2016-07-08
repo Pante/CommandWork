@@ -1,10 +1,2 @@
-C:\Users\NPStudent\Documents\NetBeansProjects\CommandWork\src\test\java\com\karusmc\commandwork\CommandUtilityTest.java
-C:\Users\NPStudent\Documents\NetBeansProjects\CommandWork\src\test\java\com\karusmc\commandwork\CommandManagerTest.java
-C:\Users\NPStudent\Documents\NetBeansProjects\CommandWork\src\test\java\com\karusmc\commandwork\reference\HelpSubcommandTest.java
-C:\Users\NPStudent\Documents\NetBeansProjects\CommandWork\src\test\java\com\karusmc\commandwork\InvalidSubcommandHandlerTest.java
-C:\Users\NPStudent\Documents\NetBeansProjects\CommandWork\src\test\java\com\karusmc\commandwork\mock\MockBukkitObjectFactory.java
-C:\Users\NPStudent\Documents\NetBeansProjects\CommandWork\src\test\java\com\karusmc\commandwork\reference\AboutSubcommandTest.java
-C:\Users\NPStudent\Documents\NetBeansProjects\CommandWork\src\test\java\com\karusmc\commandwork\SubcommandTest.java
-C:\Users\NPStudent\Documents\NetBeansProjects\CommandWork\src\test\java\com\karusmc\commandwork\mock\MockSubcommand.java
-C:\Users\NPStudent\Documents\NetBeansProjects\CommandWork\src\test\java\com\karusmc\commandwork\reference\HelpParserTest.java
-C:\Users\NPStudent\Documents\NetBeansProjects\CommandWork\src\test\java\com\karusmc\commandwork\CommandHandlerTest.java
+C:\Users\NPStudent\Documents\NetBeansProjects\CommandWork\src\test\java\com\karusmc\commandwork\CommandCallableTest.java
+C:\Users\NPStudent\Documents\NetBeansProjects\CommandWork\src\test\java\com\karusmc\commandwork\mockobjects\MockBukkitObjectFactory.java
