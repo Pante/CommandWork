@@ -26,9 +26,9 @@ import org.bukkit.command.*;
  */
 public class CommandDispatcher implements TabExecutor {
     
-    private Map<String, CommandCallable> commands;
-    private CommandCallable invalidCommandHandler;
-    private CommandParser parser;
+    private final Map<String, CommandCallable> commands;
+    private final CommandCallable invalidCommandHandler;
+    private final CommandParser parser;
     
     
     public CommandDispatcher() {
@@ -37,7 +37,7 @@ public class CommandDispatcher implements TabExecutor {
         parser = new CommandParser(commands);
     }
     
-    public CommandDispatcher(CommandCallable invalidCommandHandler, CommandParser parser) {
+    public CommandDispatcher(CommandParser parser, CommandCallable invalidCommandHandler) {
         commands = new HashMap<>();
         this.invalidCommandHandler = invalidCommandHandler;
         this.parser = parser;
@@ -63,8 +63,11 @@ public class CommandDispatcher implements TabExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         CommandCallable returned = parser.getCommandOrDefault(invalidCommandHandler, label, args);
         
-        if (returned.conditionsAreValid(sender, args)) {
-            returned.call(sender, label, args);    
+        if (parser.isQuery(args) && ConditionValidator.handleNoPermission(sender, returned.getPermission())) {
+            sender.sendMessage(returned.getInfo());
+            
+        } else if (returned.conditionsAreValid(sender, args)) {
+            returned.call(sender, args);    
         }
         
         return true;

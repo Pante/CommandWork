@@ -14,81 +14,56 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.karusmc.commandwork;
+package com.karusmc.commandwork.mockobjects;
 
-import java.util.*;
-
-import org.bukkit.ChatColor;
+import com.karusmc.commandwork.CommandCallable;
 import org.bukkit.command.CommandSender;
 
 /**
  *
  * @author PanteLegacy @ karusmc.com
  */
-public class InvalidCommandHandler extends CommandCallable {
+public class MockCommand extends CommandCallable {
     
-    private String help;
+    private String message;
+    private boolean isValid;
     
-    
-    public InvalidCommandHandler() {
-        super(null);
-        help = ChatColor.RED + "Invalid command!";
+    public MockCommand() {
+        super(MockBukkitObjectFactory.mockCommand());
+        isValid = true;
+        message = "Mock command executed";
     }
     
-    public InvalidCommandHandler(String help) {
-        super(null);
-        this.help = help;
+    public MockCommand(String message) {
+        super(MockBukkitObjectFactory.mockCommand());
+        isValid = true;
+        this.message = message;
     }
-    
     
     @Override
     public void call(CommandSender sender, String[] args) {
-        sender.sendMessage(help);
-    }
-
-    
-    @Override
-    public boolean conditionsAreValid(CommandSender sender, String[] args) {
-        sender.sendMessage(help);
-        return false;
+        sender.sendMessage(message);
     }
     
     
     @Override
     public String getInfo() {
-        return help;
+        return "Mock information";
+    }
+
+    @Override
+    public boolean conditionsAreValid(CommandSender sender, String[] args) {
+        return isValid;
     }
     
-    
-    @Override
-    public String getName() {
-        return help;
-    }
-    
-    @Override
-    public String getDescription() {
-        return help;
-    }
-    
-    @Override
-    public String getUsage() {
-        return help;
-    }
-    
-    @Override
-    public String getPermission() {
-        return "Invalid.Permission.";
-    }
-    
-    @Override
-    public List<String> getAliases() {
-        return Collections.emptyList();
+    public void setValid(boolean valid) {
+        isValid = valid;
     }
     
     
     @Override
     public String getTabCompleteName() {
-        return help;
+        return "Mock Tab Complete Name";
     }
-    
+        
 }

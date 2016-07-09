@@ -35,9 +35,9 @@ public abstract class CommandCallable {
     public CommandCallable(Command command) {
         this.command = command;
     }
-            
-            
-    public abstract void call(CommandSender sender, String label, String[] args);
+    
+    
+    public abstract void call(CommandSender sender, String[] args);
     
     public abstract boolean conditionsAreValid(CommandSender sender, String[] args);
     

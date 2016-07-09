@@ -21,7 +21,6 @@ import org.junit.Test;
 
 import static com.karusmc.commandwork.mockobjects.MockBukkitObjectFactory.*;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertEquals;
 
 /**
  *
@@ -29,26 +28,26 @@ import static org.junit.Assert.assertEquals;
  */
 public class CommandCallableTest {
     
-    private class TestCallable extends CommandCallable {
+    private static class TestCallable extends CommandCallable {
 
         public TestCallable(Command command) {
             super(command);
         }
 
         @Override
-        public void call(CommandSender sender, String label, String[] args) {
+        public void call(CommandSender sender, String[] args) {
             throw new UnsupportedOperationException(); 
         }
 
         @Override
         public boolean conditionsAreValid(CommandSender sender, String[] args) {
-            throw new UnsupportedOperationException(); 
+            return true;
         }
         
     }
     
     @Test
-    public void getInfoReturnsCommandInfo() { 
+    public void getInfo_ReturnsCommandInfo() { 
         
         Command command = mockCommand();
         TestCallable test = new TestCallable(command);

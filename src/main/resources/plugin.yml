@@ -1,5 +1,5 @@
 name: CommandWork
-main: com.karusmc.commandwork.CommandWork
+main: com.karusmc.commandwork.CommandWork.plugin
 version: 2.0.0
 description: CommandWork lib
 website: https://github.com/Pante/CommandWork

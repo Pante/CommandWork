@@ -52,19 +52,21 @@ public class CommandParser {
     
     
     public CommandCallable getCommandOrDefault(CommandCallable defaultHandler, String label, String[] args) {
-        String criteria;
+        String criteria = label;
         
-        if (args.length == 0) {
-            criteria = label;
-            
-        } else if (args.length >= 2 && args[1].equalsIgnoreCase("?")) {
-            criteria = args[1];
-            
-        } else {
+        if (args.length != 0) {
             criteria = args[0];
         }
         
         return commands.getOrDefault(criteria, defaultHandler);
+    }
+    
+    
+    public boolean isQuery(String[] args) {
+        boolean firstArgument = args.length > 0 && args[0].equalsIgnoreCase("?");
+        boolean secondArgument = args.length > 1 && args[1].equalsIgnoreCase("?");
+        
+        return (firstArgument || secondArgument);
     }
     
 }
