@@ -53,9 +53,10 @@ public class HelpParser {
     }
     
     
-    public List<String> getCommandUsages(Collection<CommandCallable> commands, Predicate<CommandCallable> predicate) {
+    public List<String> getCommandUsages(Collection<CommandCallable> commands, Predicate<CommandCallable> predicate, int limit) {
         return commands.stream()
                 .filter(predicate)
+                .limit(limit)
                 .map(subcommand -> ChatColor.GOLD + subcommand.getUsage())
                 .collect(Collectors.toList());
     }
@@ -64,10 +65,11 @@ public class HelpParser {
     public int getPage(String[] args) {
         int page = 1;
         
-        if (args.length != 0) {
-            try {
-                return Integer.parseInt(args[args.length - 1]);
-            } catch (NumberFormatException e) {}
+        if (args.length != 0 && StringUtils.isNumeric(args[args.length - 1])) {
+            int number = Integer.parseInt(args[args.length - 1]);
+            if (number > 0) {
+                return number;
+            }
         }
         
         return page;

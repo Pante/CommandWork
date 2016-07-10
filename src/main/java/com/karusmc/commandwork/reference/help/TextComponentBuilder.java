@@ -46,7 +46,7 @@ public class TextComponentBuilder {
     
     public TextComponent getBackButton(String search, int page) {
         
-        if (page < 1) {
+        if (page >= 1) {
             ClickEvent event = new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/help " + search + " " + page);
             backButton.setClickEvent(event);
 
@@ -60,7 +60,7 @@ public class TextComponentBuilder {
     
     public TextComponent getNextButton(String search, int page, int totalPages) {
         
-        if (page > totalPages) {
+        if (page <= totalPages) {
             ClickEvent event = new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/help " + search + " " + page);
             nextButton.setClickEvent(event);
 

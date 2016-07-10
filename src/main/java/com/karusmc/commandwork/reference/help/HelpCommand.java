@@ -71,7 +71,7 @@ public class HelpCommand extends CommandCallable {
         String criteria = parser.getCriteria(args);
         int page = parser.getPage(args);
         
-        List<String> info = parser.getCommandUsages(commands, parser.getPredicate(sender, criteria));
+        List<String> info = parser.getCommandUsages(commands, parser.getPredicate(sender, criteria), page * SIZE);
         
         int totalPages = parser.getTotalPages(info.size(), SIZE);
         
@@ -80,7 +80,7 @@ public class HelpCommand extends CommandCallable {
         
     }
     
-    private void printInfo(CommandSender sender, List<String> info, String search, int page, int totalPages) {
+    public void printInfo(CommandSender sender, List<String> info, String search, int page, int totalPages) {
         
         if (page <= totalPages) {
             
@@ -98,10 +98,10 @@ public class HelpCommand extends CommandCallable {
         
     }
     
-    private void printButtons(CommandSender sender, String search, int page, int totalPages) {
+    public void printButtons(CommandSender sender, String search, int page, int totalPages) {
         if (sender instanceof Player) {
             Player player = (Player) sender;
-            player.spigot().sendMessage(builder.getBackButton(search, page), builder.getWhiteSpace(), builder.getNextButton(search, page, totalPages));
+            player.spigot().sendMessage(builder.getBackButton(search, page - 1), builder.getWhiteSpace(), builder.getNextButton(search, page + 1, totalPages));
         }
     }
 
