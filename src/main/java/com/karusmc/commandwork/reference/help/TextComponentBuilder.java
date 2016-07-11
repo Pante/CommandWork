@@ -25,6 +25,8 @@ import net.md_5.bungee.api.chat.*;
  */
 public class TextComponentBuilder {
     
+    private String command;
+    
     private TextComponent backButton;
     private TextComponent nextButton;
     
@@ -32,7 +34,9 @@ public class TextComponentBuilder {
     private TextComponent blankspace;
     
     
-    public TextComponentBuilder() {
+    public TextComponentBuilder(String command) {
+        this.command = command;
+        
         backButton = new TextComponent("<< Back");
         backButton.setColor(ChatColor.GOLD);
         
@@ -47,7 +51,7 @@ public class TextComponentBuilder {
     public TextComponent getBackButton(String search, int page) {
         
         if (page >= 1) {
-            ClickEvent event = new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/help " + search + " " + page);
+            ClickEvent event = new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/" + command + " " + search + " " + page);
             backButton.setClickEvent(event);
 
             return backButton;
@@ -61,7 +65,7 @@ public class TextComponentBuilder {
     public TextComponent getNextButton(String search, int page, int totalPages) {
         
         if (page <= totalPages) {
-            ClickEvent event = new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/help " + search + " " + page);
+            ClickEvent event = new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/" + command + " " + search + " " + page);
             nextButton.setClickEvent(event);
 
             return nextButton;

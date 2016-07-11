@@ -35,8 +35,9 @@ public class CommandWork extends JavaPlugin {
         getLogger().warning("CommandWork should never be ran directly on a production server, maven-shade CommandWork instead");
         
         CommandDispatcher dispatcher = new CommandDispatcher();
-
-        CommandManager.register(dispatcher, new HelpCommand(getCommand("commandwork help"), CommandManager.REGISTERED_COMMANDS.values(), 3));
+        
+        CommandManager.register(dispatcher, new InvalidCommandHandler(getCommand("commandwork invalid")));
+        CommandManager.register(dispatcher, new HelpCommand(getCommand("commandwork help"), CommandManager.REGISTERED_COMMANDS.values(), 2));
         CommandManager.register(dispatcher, new AboutCommand(getCommand("commandwork about"), getDescription()));
 
         getCommand("commandwork").setExecutor(dispatcher);

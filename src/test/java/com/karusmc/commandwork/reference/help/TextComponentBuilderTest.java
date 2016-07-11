@@ -39,7 +39,7 @@ public class TextComponentBuilderTest {
     
     
     public TextComponentBuilderTest() throws NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
-        builder = new TextComponentBuilder();
+        builder = new TextComponentBuilder("dummy name");
         
         Field back = TextComponentBuilder.class.getDeclaredField("backButton");
         Field next = TextComponentBuilder.class.getDeclaredField("nextButton");

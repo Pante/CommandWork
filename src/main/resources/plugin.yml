@@ -1,5 +1,5 @@
 name: CommandWork
-main: com.karusmc.commandwork.CommandWork.plugin
+main: com.karusmc.commandwork.plugin.CommandWork
 version: 2.0.0
 description: CommandWork lib
 website: https://github.com/Pante/CommandWork
@@ -23,3 +23,9 @@ commands:
     description: Help subcommand
     usage: /commandwork help
     permission: commandwork.help
+    
+  "commandwork invalid":
+    aliases: [invalid, i]
+    description: Invalid Subcommand
+    usage: /commadwork invalid
+    permission: commandwork.invalid

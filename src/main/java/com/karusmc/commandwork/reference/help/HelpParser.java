@@ -53,10 +53,9 @@ public class HelpParser {
     }
     
     
-    public List<String> getCommandUsages(Collection<CommandCallable> commands, Predicate<CommandCallable> predicate, int limit) {
+    public List<String> getCommandUsages(Collection<CommandCallable> commands, Predicate<CommandCallable> predicate) {
         return commands.stream()
                 .filter(predicate)
-                .limit(limit)
                 .map(subcommand -> ChatColor.GOLD + subcommand.getUsage())
                 .collect(Collectors.toList());
     }

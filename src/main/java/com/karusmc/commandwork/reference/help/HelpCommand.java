@@ -51,7 +51,7 @@ public class HelpCommand extends CommandCallable {
         
         this.commands = commands;
         parser = new HelpParser();
-        builder = new TextComponentBuilder();
+        builder = new TextComponentBuilder(command.getName());
         SIZE = size;
     }
     
@@ -71,7 +71,7 @@ public class HelpCommand extends CommandCallable {
         String criteria = parser.getCriteria(args);
         int page = parser.getPage(args);
         
-        List<String> info = parser.getCommandUsages(commands, parser.getPredicate(sender, criteria), page * SIZE);
+        List<String> info = parser.getCommandUsages(commands, parser.getPredicate(sender, criteria));
         
         int totalPages = parser.getTotalPages(info.size(), SIZE);
         
@@ -89,7 +89,7 @@ public class HelpCommand extends CommandCallable {
             
             sender.sendMessage(header);
             
-            int last = Math.min(page * SIZE, commands.size());
+            int last = Math.min(page * SIZE, info.size());
             sender.sendMessage(info.subList(page * SIZE - SIZE, last).toArray(new String[0]));
             
         } else {
@@ -109,7 +109,7 @@ public class HelpCommand extends CommandCallable {
     @Override
     public boolean conditionsAreValid(CommandSender sender, String[] args) {
         return (handleNoPermission(sender, command.getPermission()) 
-                && handleInvalidLength(sender, 0, args.length, 2));
+                && handleInvalidLength(sender, 0, args.length, 3));
     }
     
     

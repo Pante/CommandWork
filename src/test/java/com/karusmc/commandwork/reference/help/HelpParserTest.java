@@ -115,7 +115,7 @@ public class HelpParserTest {
         Collection<CommandCallable> commands = new ArrayList<>();
         commands.add(command);
         
-        String returned = parser.getCommandUsages(commands, test, 3).get(0);
+        String returned = parser.getCommandUsages(commands, test).get(0);
         assertEquals(ChatColor.GOLD + command.getUsage(), returned);
     }
     

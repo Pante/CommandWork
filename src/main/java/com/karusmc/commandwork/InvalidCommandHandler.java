@@ -19,6 +19,7 @@ package com.karusmc.commandwork;
 import java.util.*;
 
 import org.bukkit.ChatColor;
+import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
 /**
@@ -32,12 +33,17 @@ public class InvalidCommandHandler extends CommandCallable {
     
     public InvalidCommandHandler() {
         super(null);
-        help = ChatColor.RED + "Invalid command!";
+        help = ChatColor.RED + "Invalid command.";
     }
     
     public InvalidCommandHandler(String help) {
         super(null);
         this.help = help;
+    }
+    
+    public InvalidCommandHandler(Command command) {
+        super(command);
+        this.help = ChatColor.RED + "Invalid command.";
     }
     
     
