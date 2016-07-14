@@ -21,18 +21,30 @@ import java.util.*;
 /**
  *
  * @author PanteLegacy @ karusmc.com
+ * Class contains a map of all the current CommandCallables registered.
  */
 public class CommandManager {
     
+    /**
+     * Contains all the registered commands
+     */
     public static final Map<String, CommandCallable> REGISTERED_COMMANDS = new HashMap<>();
     
-    
+    /**
+     * Method that registers the CommandCallable with the CommandDispatcher and this class.
+     * @param dispatcher The dispatcher to be register the CommandCallable to
+     * @param command The command to register
+     */
     public static void register(CommandDispatcher dispatcher, CommandCallable command) {
         REGISTERED_COMMANDS.put(command.getName(), command);
         dispatcher.register(command);
     }
     
-    
+    /**
+     * Method that unregisters the CommandCallable from the CommandDispatcher and this class
+     * @param dispatcher The dispatcher to unregister the CommandCallable from
+     * @param command The command to unregister
+     */
     public static void unregister(CommandDispatcher dispatcher, CommandCallable command) {
         REGISTERED_COMMANDS.remove(command.getName());
         dispatcher.unregister(command);

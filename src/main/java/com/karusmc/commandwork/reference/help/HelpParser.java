@@ -30,9 +30,15 @@ import org.bukkit.command.CommandSender;
 /**
  *
  * @author PanteLegacy @ karusmc.com
+ * Class which handles the parsing of arguments
  */
 public class HelpParser {
     
+    /**
+     * Gets the search criteria based on the arguments
+     * @param args The command arguments
+     * @return The search criteria
+     */
     public String getCriteria(String[] args) {
         if (args.length == 1 || StringUtils.isNumeric(args[1])) {
             return "All";
@@ -41,6 +47,12 @@ public class HelpParser {
         }
     }
     
+    /**
+     * 
+     * @param sender
+     * @param criteria
+     * @return The predicate
+     */
     public Predicate<CommandCallable> getPredicate(CommandSender sender, String criteria) {
         
         if (criteria.equalsIgnoreCase("All")) {
@@ -53,6 +65,12 @@ public class HelpParser {
     }
     
     
+    /**
+     * 
+     * @param commands A collection of CommandCallables to filter through
+     * @param predicate The predicate to filter the collection of commands by
+     * @return A list of command usages based on the the specified collection of CommandCallables
+     */
     public List<String> getCommandUsages(Collection<CommandCallable> commands, Predicate<CommandCallable> predicate) {
         return commands.stream()
                 .filter(predicate)
@@ -61,6 +79,11 @@ public class HelpParser {
     }
 
     
+    /**
+     * Return the current page based on the arguments 
+     * @param args
+     * @return The current page number
+     */
     public int getPage(String[] args) {
         int page = 1;
         
@@ -75,6 +98,12 @@ public class HelpParser {
     }
     
     
+    /**
+     * Calculates the total number of pages based on the parameters
+     * @param listSize The total number of items
+     * @param pageSize The page size
+     * @return The total number of pages
+     */
     public int getTotalPages(int listSize, int pageSize) {
         if (listSize == 0) {
             return 0;

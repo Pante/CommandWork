@@ -29,6 +29,7 @@ import static com.karusmc.commandwork.ConditionValidator.*;
 /**
  *
  * @author PanteLegacy @ karusmc.com
+ * Reference About command that returns information about the plug-in
  */
 public class AboutCommand extends CommandCallable {
     
@@ -42,7 +43,7 @@ public class AboutCommand extends CommandCallable {
         super(command);
         this.description = formatAbout(description);
     }
-    
+
     
     private String formatAbout(PluginDescriptionFile description) {
         StringBuilder buffy = new StringBuilder();
@@ -55,6 +56,11 @@ public class AboutCommand extends CommandCallable {
     }
     
     
+    /**
+     * Returns information about plugin
+     * @param sender
+     * @param args 
+     */
     @Override
     public void call(CommandSender sender, String[] args) {
         sender.sendMessage(description);
@@ -77,4 +83,5 @@ public class AboutCommand extends CommandCallable {
     public boolean conditionsAreValid(CommandSender sender, String[] args) {
         return (handleNoPermission(sender, command.getPermission()) && handleInvalidLength(sender, 1, args.length, 1));
     }
+    
 }

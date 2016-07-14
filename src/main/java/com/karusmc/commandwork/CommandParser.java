@@ -25,6 +25,7 @@ import org.bukkit.command.CommandSender;
 /**
  *
  * @author PanteLegacy @ karusmc.com
+ * Class that handles the parsing of arguments to determine the CommandCallable that should be called
  */
 public class CommandParser {
     
@@ -37,7 +38,12 @@ public class CommandParser {
         this.commands = commands;
     }
     
-    
+    /**
+     * Parses and returns a list of names based on the sender's permission and the arguments
+     * @param sender An instance of a spigot CommandSender
+     * @param args The command arguments
+     * @return A list of names
+     */
     public List<String> getMatchingNames(CommandSender sender, String[] args) {
         if (args.length != 0) {
             Predicate<CommandCallable> criteria = command -> sender.hasPermission(command.getPermission()) && command.getTabCompleteName().startsWith(args[0]);
@@ -50,7 +56,13 @@ public class CommandParser {
         }
     }
     
-    
+    /**
+     * Gets a command based on the specified label and arguments or defaults to the specified CommandCallable.
+     * @param defaultHandler Default CommandCallable which is returned if a command can not be found
+     * @param label
+     * @param args
+     * @return CommandCallable or the Default CommandCallble if a CommandCallble cannot be found
+     */
     public CommandCallable getCommandOrDefault(CommandCallable defaultHandler, String label, String[] args) {
         String criteria = label;
         
@@ -61,7 +73,11 @@ public class CommandParser {
         return commands.getOrDefault(criteria, defaultHandler);
     }
     
-    
+    /**
+     * Parses the specified arguments to check if it is a query.
+     * @param args Arguments to parse
+     * @return true if the arguments is a query
+     */
     public boolean isQuery(String[] args) {
         boolean firstArgument = args.length > 0 && args[0].equalsIgnoreCase("?");
         boolean secondArgument = args.length > 1 && args[1].equalsIgnoreCase("?");

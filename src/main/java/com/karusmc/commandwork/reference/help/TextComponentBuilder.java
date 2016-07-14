@@ -22,6 +22,7 @@ import net.md_5.bungee.api.chat.*;
 /**
  *
  * @author PanteLegacy @ karusmc.com
+ * Class which handles the building of text components used in HelpCommand
  */
 public class TextComponentBuilder {
     
@@ -33,7 +34,10 @@ public class TextComponentBuilder {
     private TextComponent whitespace;
     private TextComponent blankspace;
     
-    
+    /**
+     * 
+     * @param command The underlying spigot command name of the instance of HelpCommand
+     */
     public TextComponentBuilder(String command) {
         this.command = command;
         
@@ -47,7 +51,12 @@ public class TextComponentBuilder {
         blankspace = new TextComponent("       ");
     }
     
-    
+    /**
+     * Builds the back button based on the specified parameters
+     * @param search The search criteria
+     * @param page The current page number
+     * @return The back button
+     */
     public TextComponent getBackButton(String search, int page) {
         
         if (page >= 1) {
@@ -62,6 +71,13 @@ public class TextComponentBuilder {
         
     }
     
+    /**
+     * Builds the next button based on the specified parameters
+     * @param search The search criteria
+     * @param page The current page number
+     * @param totalPages The total number of pages
+     * @return The next button
+     */
     public TextComponent getNextButton(String search, int page, int totalPages) {
         
         if (page <= totalPages) {

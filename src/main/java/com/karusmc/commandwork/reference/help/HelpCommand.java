@@ -30,6 +30,7 @@ import static com.karusmc.commandwork.ConditionValidator.*;
 /**
  *
  * @author PanteLegacy @ karusmc.com
+ * Reference Help Command which returns a list of plugin commands registered in CommandManager
  */
 public class HelpCommand extends CommandCallable {
     
@@ -64,7 +65,11 @@ public class HelpCommand extends CommandCallable {
         SIZE = size;
     }
 
-    
+    /**
+     * Parses and sends the sender a list of commands
+     * @param sender
+     * @param args 
+     */
     @Override
     public void call(CommandSender sender, String[] args) {
         
@@ -80,7 +85,7 @@ public class HelpCommand extends CommandCallable {
         
     }
     
-    public void printInfo(CommandSender sender, List<String> info, String search, int page, int totalPages) {
+    private void printInfo(CommandSender sender, List<String> info, String search, int page, int totalPages) {
         
         if (page <= totalPages) {
             
@@ -98,7 +103,7 @@ public class HelpCommand extends CommandCallable {
         
     }
     
-    public void printButtons(CommandSender sender, String search, int page, int totalPages) {
+    private void printButtons(CommandSender sender, String search, int page, int totalPages) {
         if (sender instanceof Player) {
             Player player = (Player) sender;
             player.spigot().sendMessage(builder.getBackButton(search, page - 1), builder.getWhiteSpace(), builder.getNextButton(search, page + 1, totalPages));

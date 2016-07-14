@@ -24,24 +24,44 @@ import org.bukkit.command.*;
 /**
  *
  * @author PanteLegacy @ karusmc.com
+ * Abstract class that serves as a base class which all commands should extend. Used by @See com.karusmc.commandwork.CommandDispatcher .
  */
 public abstract class CommandCallable {
     
+    /**
+     * Wrapped instance of a spigot command.
+     */
     protected Command command;
     
     
     private CommandCallable() {}
     
+    /**
+     * @param command A spigot command to be wrapped
+     */
     public CommandCallable(Command command) {
         this.command = command;
     }
     
-    
+    /**
+     * Execute the main logic of this command. Called by CommandDispatcher
+     * @param sender An instance of a spigot CommandSender
+     * @param args The command arguments
+     */
     public abstract void call(CommandSender sender, String[] args);
     
+    /**
+     * Used to check if the conditions to execute this command are valid. Called by CommandDispatcher
+     * @param sender An instance of a spigot CommandSender
+     * @param args
+     * @return 
+     */
     public abstract boolean conditionsAreValid(CommandSender sender, String[] args);
     
-    
+    /**
+     * Returns formatted information about this command.
+     * @return The formatted information about this command.
+     */
     public String getInfo() {
         StringBuilder buffy = new StringBuilder();
 
@@ -53,28 +73,50 @@ public abstract class CommandCallable {
         return ChatColor.translateAlternateColorCodes('&', buffy.toString());
     }
     
-    
+    /**
+     * 
+     * @return Returns the underlying spigot command name
+     */
     public String getName() {
         return command.getName();
     }
     
+    /**
+     * 
+     * @return Returns the underlying spigot command description
+     */
     public String getDescription() {
         return command.getDescription();
     }
     
+    /**
+     * 
+     * @return Returns the underlying spigot command usage
+     */
     public String getUsage() {
         return command.getUsage();
     }
     
+    /**
+     * 
+     * @return Returns the underlying spigot command permission
+     */
     public String getPermission() {
         return command.getPermission();
     }
     
+    /**
+     * 
+     * @return Returns the tab complete name to be used to complete a command
+     */
     public String getTabCompleteName() {
         return command.getAliases().get(0);
     }
     
-    
+    /**
+     * 
+     * @return Returns the underlying spigot command aliases
+     */
     public List<String> getAliases() {
         return command.getAliases();
     }

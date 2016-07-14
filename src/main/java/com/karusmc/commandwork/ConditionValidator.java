@@ -23,14 +23,29 @@ import org.bukkit.entity.Player;
 /**
  *
  * @author PanteLegacy @ karusmc.com
+ * Utility classes which contains methods to check for and handle invalid conditions
  */
 public class ConditionValidator {
     
+    /**
+     * Message to display when the sender is not a player
+     */
     public static String notPlayerMessage = ChatColor.RED + "This is a player only command.";
+    /**
+     * Message to display when the sender does not have the necessary permission
+     */
     public static String noPermissionMessage = ChatColor.RED + "You do not have permission to use this command.";
+    /**
+     * Message to display when the arguments length specified is invalid
+     */
     public static String invalidLengthMessage = ChatColor.RED + "Invalid number of arguments.";
     
     
+    /**
+     * Checks for and handles the sender not being a player
+     * @param sender An instance of a spigot ComandSender sender
+     * @return true if the sender is a player
+     */
     public static boolean handleNotPlayer(CommandSender sender) {
         
         if (sender instanceof Player) {
@@ -44,6 +59,12 @@ public class ConditionValidator {
     }
    
     
+    /**
+     * Checks for and handles the sender not having the necessary permission
+     * @param sender An instance of a spigot CommandSender sender
+     * @param permission The permission to test for
+     * @return Returns true if the sender has the specified permission
+     */
     public static boolean handleNoPermission(CommandSender sender, String permission) {
         
         if(sender.hasPermission(permission)) {
@@ -57,6 +78,14 @@ public class ConditionValidator {
     }
     
     
+    /**
+     * Checks for and handles the argument length being out of the specified bounds
+     * @param sender
+     * @param min Minimum length inclusive
+     * @param length The length of the arguments
+     * @param max Maximum length inclusive
+     * @return Returns true if the length of the arguments is within the specified minimum and maximum length
+     */
     public static boolean handleInvalidLength(CommandSender sender, int min, int length, int max) {
         
         if(length >= min && length <= max) {

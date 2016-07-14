@@ -26,6 +26,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 /**
  *
  * @author PanteLegacy @ karusmc.com
+ * Main class of CommandWork used for testing purposes. Plug-in should NEVER be running on a production server
  */
 public class CommandWork extends JavaPlugin {
     

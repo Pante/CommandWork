@@ -23,6 +23,7 @@ import org.bukkit.command.*;
 /**
  *
  * @author PanteLegacy @ karusmc.com
+ * Class should be registered to spigot's inbuilt command system. Class dispatches commandcallables based on string arguments and handles tab completion.
  */
 public class CommandDispatcher implements TabExecutor {
     
@@ -31,23 +32,38 @@ public class CommandDispatcher implements TabExecutor {
     private final CommandParser parser;
     
     
+    /**
+     * Creates a new instance of CommandDispatcher with the default configuration.
+     */
     public CommandDispatcher() {
         commands = new HashMap<>();
         invalidCommandHandler = new InvalidCommandHandler();
         parser = new CommandParser(commands);
     }
     
+    /**
+     * Creates a new instance of CommandDispatcher with the specified parser and invalid command handler.
+     * @param parser The parser to be used by the CommandDispatcher to determine the command called
+     * @param invalidCommandHandler A CommandCallable that handles invalid command calls
+     */
     public CommandDispatcher(CommandParser parser, CommandCallable invalidCommandHandler) {
         commands = new HashMap<>();
         this.invalidCommandHandler = invalidCommandHandler;
         this.parser = parser;
     }
     
-    
+    /**
+     * Registers a command with the CommandDispatcher
+     * @param command The CommandCallble to registered
+     */
     public void register(CommandCallable command) {
         command.getAliases().forEach(alias -> commands.putIfAbsent(alias, command));
     }
     
+    /**
+     * Unregisters a command from the CommandDispatcher
+     * @param command The CommandCallable to be unregistered
+     */
     public void unregister(CommandCallable command) {
         command.getAliases().forEach(commands::remove);
     }
@@ -58,7 +74,14 @@ public class CommandDispatcher implements TabExecutor {
         return parser.getMatchingNames(sender, args);
     }
 
-    
+    /**
+     * Determines the CommandCallable to be called
+     * @param sender
+     * @param command
+     * @param label
+     * @param args
+     * @return 
+     */
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         CommandCallable returned = parser.getCommandOrDefault(invalidCommandHandler, label, args);
