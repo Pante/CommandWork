@@ -80,7 +80,7 @@ public class HelpCommand extends CommandCallable {
         
     }
     
-    public void printInfo(CommandSender sender, List<String> info, String search, int page, int totalPages) {
+    private void printInfo(CommandSender sender, List<String> info, String search, int page, int totalPages) {
         
         if (page <= totalPages) {
             
@@ -98,7 +98,7 @@ public class HelpCommand extends CommandCallable {
         
     }
     
-    public void printButtons(CommandSender sender, String search, int page, int totalPages) {
+    private void printButtons(CommandSender sender, String search, int page, int totalPages) {
         if (sender instanceof Player) {
             Player player = (Player) sender;
             player.spigot().sendMessage(builder.getBackButton(search, page - 1), builder.getWhiteSpace(), builder.getNextButton(search, page + 1, totalPages));
