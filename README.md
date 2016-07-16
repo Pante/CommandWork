@@ -2,7 +2,7 @@
 
 CommandWork is a plugin.yml based Command Library that aims to make subcommands less of a hassle for developers to create and maintain, with its primary goals being simplicity and ease of use. At roughly 20KB, the library is fairly light.
 
-To include it in a plugin, paste the following in the pom.xml and maven shade the library.
+To include it in a plugin, add the jar to your library folder, paste the following in the pom.xml and maven shade the library.
 ```xml
   <dependency>
     <groupId>com.karusmc</groupId>
