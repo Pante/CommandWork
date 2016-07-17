@@ -100,7 +100,7 @@ getCommand("Panda").setExecutor(dispatcher);
 <br>
 
 #Documentation
-A copy of the Javodocs can be found [here](http://www.karusmc.com/development/CommandWork/).
+A copy of the Javodocs can be found [here](https://pante.github.io/CommandWork-Javadocs/).
 
 #Licensing
 Copyright (C) 2016 PanteLegacy @ karusmc.com <br>
