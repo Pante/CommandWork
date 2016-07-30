@@ -66,7 +66,7 @@ public class CommandParser {
     public CommandCallable getCommandOrDefault(CommandCallable defaultHandler, String label, String[] args) {
         String criteria = label;
         
-        if (args.length != 0) {
+        if (args.length != 0 && commands.containsKey(args[0])) {
             criteria = args[0];
         }
         
