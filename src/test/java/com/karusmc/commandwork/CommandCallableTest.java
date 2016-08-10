@@ -17,9 +17,11 @@
 package com.karusmc.commandwork;
 
 import org.bukkit.command.*;
+
 import org.junit.Test;
 
 import static com.karusmc.commandwork.mockobjects.MockBukkitObjectFactory.*;
+import net.md_5.bungee.api.ChatColor;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -46,18 +48,19 @@ public class CommandCallableTest {
         
     }
     
+    
     @Test
     public void getInfo_ReturnsCommandInfo() { 
         
         Command command = mockCommand();
         TestCallable test = new TestCallable(command);
         
-        String expectedInfo = "§6==== Help: §c" + command.getName() + "§6 ===="
-                + "§6\nUsage: §c" + command.getUsage()
-                + "§6\nDescription: §c" + command.getDescription()
-                + "\nAliases: §c" + command.getAliases().toString();
+        String expectedInfo = "==== Help: " + command.getName() + " ===="
+                + "\nUsage: " + command.getUsage()
+                + "\nDescription: " + command.getDescription()
+                + "\nAliases: " + command.getAliases().toString();
                 
-        String returnedInfo = test.getInfo();
+        String returnedInfo = ChatColor.stripColor(test.getInfo());
         
         assertEquals(expectedInfo, returnedInfo);
         

@@ -81,5 +81,4 @@ public class TextComponentBuilder {
         return whitespace;
     }
     
-    
 }

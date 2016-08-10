@@ -51,6 +51,7 @@ public class TextComponentBuilderTest {
         
         blank.setAccessible(true);
         
+        
         backButton = (TextComponent) back.get(builder);
         nextButton = (TextComponent) next.get(builder);
         
@@ -60,26 +61,34 @@ public class TextComponentBuilderTest {
     
     @Test
     public void getBackButton_pageMoreThanZero_ReturnsBackButton() {
+        
         TextComponent returned = builder.getBackButton("whatever", 1);
+        
         assertEquals(backButton, returned);
     }
     
     @Test
     public void getBackButton_pageLessThanOne_ReturnsBlankSpace() {
+        
         TextComponent returned = builder.getBackButton("whatever", 0);
+        
         assertEquals(blankspace, returned);
     }
     
     
     @Test
     public void getNextButton_pageLessOrEqualToTotalPages_ReturnNextButton() {
+        
         TextComponent returned = builder.getNextButton("whatever", 3, 3);
+        
         assertEquals(nextButton, returned);
     }
     
     @Test
     public void getNextButton_pageMoreThanTotalPages_ReturnsBlankSpace() {
+        
         TextComponent returned = builder.getNextButton("whatever", 4, 3);
+        
         assertEquals(blankspace, returned);
     }
     

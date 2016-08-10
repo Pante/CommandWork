@@ -43,14 +43,20 @@ public abstract class CommandCallable {
     
     
     public String getInfo() {
-        StringBuilder buffy = new StringBuilder();
+        StringBuilder builder = new StringBuilder();
 
-        buffy.append("&6==== Help: &c").append(getName()).append("&6 ====");
-        buffy.append("&6\nUsage: &c").append(getUsage());
-        buffy.append("&6\nDescription: &c").append(getDescription());
-        buffy.append("\nAliases: &c").append(getAliases().toString());
-
-        return ChatColor.translateAlternateColorCodes('&', buffy.toString());
+        
+        builder.append("&6==== Help: &c").append(getName()).append("&6 ====\n");
+        
+        builder.append("Usage: &c").append(getUsage()).append("&6\n");
+        
+        builder.append("Description: &c").append(getDescription()).append("&6\n");
+        
+        builder.append("Aliases: &c").append(getAliases().toString());
+        
+        
+        String colouredInfo = ChatColor.translateAlternateColorCodes('&', builder.toString());
+        return colouredInfo;
     }
     
     

@@ -22,6 +22,7 @@ import org.junit.Test;
 
 import static com.karusmc.commandwork.ConditionValidator.*;
 import static com.karusmc.commandwork.mockobjects.MockBukkitObjectFactory.*;
+
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
@@ -34,8 +35,10 @@ public class ConditionValidatorTest {
     private CommandSender hasPermSender = mockSender(true);    
     private CommandSender noPermSender = mockSender(false);
     
+    
     @Test
     public void handleNotPlayer_notCalls_CommandSender_sendMessage_returnsTrue() {
+        
         boolean returned = handleNotPlayer(mockPlayer(false));
         
         verify(hasPermSender, times(0)).sendMessage(notPlayerMessage);
@@ -44,6 +47,7 @@ public class ConditionValidatorTest {
     
     @Test
     public void handleNotPlayer_calls_CommandSender_sendMessage_returnFalse() {
+        
         boolean returned = handleNotPlayer(hasPermSender);
         
         verify(hasPermSender, times(1)).sendMessage(notPlayerMessage);
@@ -61,6 +65,7 @@ public class ConditionValidatorTest {
     
     @Test
     public void handleNoPermission_Calls_CommandSender_sendMessage_returnsFalse() {
+        
         boolean returned = handleNoPermission(noPermSender, MOCK_PERMISSION);
         
         verify(noPermSender, times(1)).sendMessage(noPermissionMessage);
@@ -70,6 +75,7 @@ public class ConditionValidatorTest {
     
     @Test
     public void handleInvalidLength_noCalls_CommandSender_sendMessage_returnsTrue() {
+        
         boolean returned = handleInvalidLength(hasPermSender, 0, 3, 3);
         
         verify(hasPermSender, times(0)).sendMessage(invalidLengthMessage);
@@ -78,10 +84,12 @@ public class ConditionValidatorTest {
     
     @Test
     public void handleInvalidLength_calls_CommandSender_sendMessage_returnsFalse() {
+        
         boolean returnedLower = handleInvalidLength(hasPermSender, 2, 1, 3);
         boolean returnedUpper = handleInvalidLength(hasPermSender, 2, 4, 3);
         
         verify(hasPermSender, times(2)).sendMessage(invalidLengthMessage);
+        
         assertFalse(returnedLower);
         assertFalse(returnedUpper);
     }

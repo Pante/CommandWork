@@ -43,8 +43,8 @@ public class CommandDispatcherTest {
     private CommandSender sender;
     
     
-    public CommandDispatcherTest() throws NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
-        
+    public CommandDispatcherTest() throws NoSuchFieldException, IllegalArgumentException, IllegalAccessException {        
+                
         command = new MockCommand();
         parser = mock(CommandParser.class);
         
@@ -53,7 +53,7 @@ public class CommandDispatcherTest {
         Field field = CommandDispatcher.class.getDeclaredField("commands");
         field.setAccessible(true);
         commands = (Map<String, CommandCallable>) field.get(dispatcher);
-        
+
         sender = mockSender(true);
     }
     
@@ -102,16 +102,16 @@ public class CommandDispatcherTest {
     @Test
     public void onCommand_Calls_CommandCallable_Call() {
         
-        CommandCallable dummy = mock(CommandCallable.class);
+        CommandCallable dummyCommand = mock(CommandCallable.class);
         
-        when(parser.getCommandOrDefault(command, null, null)).thenReturn(dummy);
+        when(parser.getCommandOrDefault(command, null, null)).thenReturn(dummyCommand);
         when(parser.isQuery(null)).thenReturn(false);
         
-        when(dummy.conditionsAreValid(sender, null)).thenReturn(true);
+        when(dummyCommand.conditionsAreValid(sender, null)).thenReturn(true);
         
         dispatcher.onCommand(sender, null, null, null);
         
-        verify(dummy, times(1)).call(sender, null);
+        verify(dummyCommand, times(1)).call(sender, null);
     }
     
     

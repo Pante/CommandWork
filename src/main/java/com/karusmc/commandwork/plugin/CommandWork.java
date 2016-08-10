@@ -23,6 +23,8 @@ import com.karusmc.commandwork.reference.help.HelpCommand;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
+import static com.karusmc.commandwork.CommandManager.register;
+
 /**
  *
  * @author PanteLegacy @ karusmc.com
@@ -32,20 +34,18 @@ public class CommandWork extends JavaPlugin {
     @Override
     public void onEnable() {
         
-        getLogger().warning("CommandWork should never be ran directly on a production server, maven-shade CommandWork instead");
+        getLogger().warning("Users are highly discouraged from running CommandWork on a production server. Maven-shade CommandWork instead.");
         
         CommandDispatcher dispatcher = new CommandDispatcher();
         
-        CommandManager.register(dispatcher, new InvalidCommandHandler(getCommand("commandwork invalid")));
-        CommandManager.register(dispatcher, new HelpCommand(getCommand("commandwork help"), CommandManager.REGISTERED_COMMANDS.values(), 2));
-        CommandManager.register(dispatcher, new AboutCommand(getCommand("commandwork about"), getDescription()));
+        register(dispatcher, new InvalidCommandHandler(getCommand("commandwork invalid")));
+        register(dispatcher, new HelpCommand(getCommand("commandwork help"), CommandManager.REGISTERED_COMMANDS.values(), 2));
+        register(dispatcher, new AboutCommand(getCommand("commandwork about"), getDescription()));
 
         getCommand("commandwork").setExecutor(dispatcher);
     }
 
     @Override
-    public void onDisable() {
-        
-    }
+    public void onDisable() {}
     
 }

@@ -39,10 +39,17 @@ public class CommandParser {
     
     
     public List<String> getMatchingNames(CommandSender sender, String[] args) {
+        
         if (args.length != 0) {
-            Predicate<CommandCallable> criteria = command -> sender.hasPermission(command.getPermission()) && command.getTabCompleteName().startsWith(args[0]);
+            Predicate<CommandCallable> criteria = command 
+                    -> sender.hasPermission(command.getPermission()) 
+                    && command.getTabCompleteName().startsWith(args[0]);
             
-            List<String> names = commands.values().stream().filter(criteria).map(CommandCallable::getTabCompleteName).collect(Collectors.toList());
+            List<String> names = commands.values().stream()
+                    .filter(criteria)
+                    .map(CommandCallable::getTabCompleteName)
+                    .collect(Collectors.toList());
+            
             return names;
             
         } else {
@@ -66,7 +73,7 @@ public class CommandParser {
         boolean firstArgument = args.length > 0 && args[0].equalsIgnoreCase("?");
         boolean secondArgument = args.length > 1 && args[1].equalsIgnoreCase("?");
         
-        return (firstArgument || secondArgument);
+        return firstArgument || secondArgument;
     }
     
 }

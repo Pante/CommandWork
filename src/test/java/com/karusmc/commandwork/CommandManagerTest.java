@@ -35,6 +35,7 @@ public class CommandManagerTest {
     
     @Test
     public void register_PutsCommandInMap_Calls_CommandDispatcher_register() {
+        
         CommandManager.register(dispatcher, command);
         
         boolean containsCommand = CommandManager.REGISTERED_COMMANDS.containsValue(command);
@@ -45,6 +46,7 @@ public class CommandManagerTest {
     
     @Test
     public void unregister_RemoveCommandFromMap_Calls_CommandDispatcher_unregister() {
+        
         CommandManager.REGISTERED_COMMANDS.put(command.getName(), command);
         CommandManager.unregister(dispatcher, command);
         

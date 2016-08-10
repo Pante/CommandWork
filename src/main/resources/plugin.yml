@@ -1,9 +1,10 @@
 name: CommandWork
 main: com.karusmc.commandwork.plugin.CommandWork
-version: 2.0.0
+version: 2.0.1
 description: CommandWork lib
 website: https://github.com/Pante/CommandWork
-author: PanteLegacy, Danny
+author: PanteLegacy
+
 commands:
 
   commandwork:

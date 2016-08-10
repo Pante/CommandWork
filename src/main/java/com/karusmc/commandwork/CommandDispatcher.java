@@ -20,27 +20,32 @@ import java.util.*;
 
 import org.bukkit.command.*;
 
+import static com.karusmc.commandwork.ConditionValidator.handleNoPermission;
+
 /**
  *
  * @author PanteLegacy @ karusmc.com
  */
 public class CommandDispatcher implements TabExecutor {
+        
+    private final CommandParser parser;
     
     private final Map<String, CommandCallable> commands;
     private final CommandCallable invalidCommandHandler;
-    private final CommandParser parser;
     
     
     public CommandDispatcher() {
         commands = new HashMap<>();
-        invalidCommandHandler = new InvalidCommandHandler();
         parser = new CommandParser(commands);
+        
+        invalidCommandHandler = new InvalidCommandHandler();
     }
     
     public CommandDispatcher(CommandParser parser, CommandCallable invalidCommandHandler) {
         commands = new HashMap<>();
-        this.invalidCommandHandler = invalidCommandHandler;
         this.parser = parser;
+              
+        this.invalidCommandHandler = invalidCommandHandler;
     }
     
     
@@ -61,9 +66,10 @@ public class CommandDispatcher implements TabExecutor {
     
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        
         CommandCallable returned = parser.getCommandOrDefault(invalidCommandHandler, label, args);
         
-        if (parser.isQuery(args) && ConditionValidator.handleNoPermission(sender, returned.getPermission())) {
+        if (parser.isQuery(args) && handleNoPermission(sender, returned.getPermission())) {
             sender.sendMessage(returned.getInfo());
             
         } else if (returned.conditionsAreValid(sender, args)) {

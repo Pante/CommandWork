@@ -40,6 +40,7 @@ public class MockBukkitObjectFactory {
     
     
     public static CommandSender mockSender(boolean returnValue) {
+        
         CommandSender sender = mock(CommandSender.class);
         when(sender.hasPermission(MOCK_PERMISSION)).thenReturn(returnValue);
         
@@ -48,6 +49,7 @@ public class MockBukkitObjectFactory {
     
     
     public static Player mockPlayer(boolean returnValue) {
+        
         Player player = mock(Player.class);
         when(player.hasPermission(MOCK_PERMISSION)).thenReturn(returnValue);
         
@@ -56,6 +58,7 @@ public class MockBukkitObjectFactory {
     
     
     public static Command mockCommand() {
+        
         Command command = mock(Command.class);
         
         List<String> aliases = new ArrayList<>();

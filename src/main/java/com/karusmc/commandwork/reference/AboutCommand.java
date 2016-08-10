@@ -46,12 +46,21 @@ public class AboutCommand extends CommandCallable {
     
     private String formatAbout(PluginDescriptionFile description) {
         StringBuilder buffy = new StringBuilder();
-        buffy.append("&6").append(description.getName()).append(" version: &c").append(description.getVersion()).append("\n&6");
+        
+        
+        buffy.append("&6").append(description.getName());
+        
+        buffy.append(" version: &c").append(description.getVersion()).append("\n&6");
+        
         buffy.append(description.getDescription());
+        
         buffy.append("\nAuthor(s): &c").append(description.getAuthors().toString());
+        
         buffy.append("\n&6Source code & development resources: &c").append(description.getWebsite());
 
-        return ChatColor.translateAlternateColorCodes('&', buffy.toString());
+        
+        String colouredAbout = ChatColor.translateAlternateColorCodes('&', buffy.toString());
+        return colouredAbout;
     }
     
     
@@ -65,6 +74,7 @@ public class AboutCommand extends CommandCallable {
     public List<String> getAliases() {
         List<String> aliases = command.getAliases();
         aliases.add("about");
+        
         return aliases;
     }
     
@@ -75,6 +85,7 @@ public class AboutCommand extends CommandCallable {
 
     @Override
     public boolean conditionsAreValid(CommandSender sender, String[] args) {
-        return (handleNoPermission(sender, command.getPermission()) && handleInvalidLength(sender, 1, args.length, 1));
+        return handleNoPermission(sender, command.getPermission()) && handleInvalidLength(sender, 1, args.length, 1);
     }
+    
 }

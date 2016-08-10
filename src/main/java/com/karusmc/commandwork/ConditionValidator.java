@@ -46,7 +46,7 @@ public class ConditionValidator {
     
     public static boolean handleNoPermission(CommandSender sender, String permission) {
         
-        if(sender.hasPermission(permission)) {
+        if (sender.hasPermission(permission)) {
             return true;
             
         } else {
@@ -59,7 +59,7 @@ public class ConditionValidator {
     
     public static boolean handleInvalidLength(CommandSender sender, int min, int length, int max) {
         
-        if(length >= min && length <= max) {
+        if (length >= min && length <= max) {
             return true;
             
         } else {

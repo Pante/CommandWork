@@ -42,12 +42,14 @@ public class HelpParserTest {
     
     @Test
     public void getCriteria_OneArgument_ReturnsAll() {
+        
         String returned = parser.getCriteria(new String[] {"Work"});
         assertEquals("All", returned);
     }
     
     @Test
     public void getCriteria_IsNumber_ReturnsAll() {
+        
         String returned = parser.getCriteria(new String[] {"Work", "1"});
         assertEquals("All", returned);
     }
@@ -55,6 +57,7 @@ public class HelpParserTest {
     
     @Test
     public void getCriteria_TwoArguments_ReturnsSecondArgument() {
+        
         String returned = parser.getCriteria(new String[] {"Work", "Expected"});
         assertEquals("Expected", returned);
     }
@@ -62,60 +65,72 @@ public class HelpParserTest {
     
     @Test
     public void getPredicate_All_ReturnsNoNameCheckPredicate_ReturnsTrue() {
+        
         CommandSender sender = mockSender(true);
         
         Predicate<CommandCallable> predicate = parser.getPredicate(sender, "all");
         boolean returned = predicate.test(command);
+        
         assertTrue(returned);
     }
     
     @Test
     public void getPredicate_All_ReturnsNoNameCheckPredicate_ReturnFalse() {
+        
         CommandSender sender = mockSender(false);
         
         Predicate<CommandCallable> predicate = parser.getPredicate(sender, "all");
         boolean returned = predicate.test(command);
+        
         assertFalse(returned);
     }
     
     
     @Test
     public void getPredicate_Argument_ReturnsNameCheckPredicate_ReturnsTrue() {
+        
         CommandSender sender = mockSender(true);
         
         Predicate<CommandCallable> predicate = parser.getPredicate(sender, MOCK_NAME);
         boolean returned = predicate.test(command);
+        
         assertTrue(returned);
     }
     
     @Test
     public void getPredicate_Argument_ReturnsNameCheckPredicate_ReturnsFalse() {
+        
         CommandSender sender = mockSender(true);
         
         Predicate<CommandCallable> predicate = parser.getPredicate(sender, "Invalid name");
         boolean returned = predicate.test(command);
+        
         assertFalse(returned);
     }
     
     
     @Test
     public void getPredicate_HasPermission_Argument_ReturnsNameCheckPredicate_ReturnsFalse() {
+        
         CommandSender sender = mockSender(false);
         
         Predicate<CommandCallable> predicate = parser.getPredicate(sender, MOCK_NAME);
         boolean returned = predicate.test(command);
+        
         assertFalse(returned);
     }
     
     
     @Test
     public void getCommandUsages_ReturnsUsage() {
+        
         Predicate<CommandCallable> test = CommandCallable -> true;
         
         Collection<CommandCallable> commands = new ArrayList<>();
         commands.add(command);
         
         String returned = parser.getCommandUsages(commands, test).get(0);
+        
         assertEquals(ChatColor.GOLD + command.getUsage(), returned);
     }
     
@@ -123,18 +138,21 @@ public class HelpParserTest {
     @Test
     public void getPage_NoArguments_Return1() {
         int page = parser.getPage(new String[] {});
+        
         assertEquals(1, page);
     }
     
     @Test
     public void getPage_StringArgument_Return1() {
         int page = parser.getPage(new String[] {"string"});
+        
         assertEquals(1, page);
     }
     
     @Test
     public void getPage_NegativeNumber_Return1() {
         int page = parser.getPage(new String[] {"- 1"});
+        
         assertEquals(1, page);
     }
     
@@ -142,18 +160,21 @@ public class HelpParserTest {
     @Test
     public void getTotalPages_ZeroList_ReturnZero() {
         int returned = parser.getTotalPages(0, 100);
+        
         assertEquals(0, returned);
     }
     
     @Test
     public void getTotalPages_ListSmallerThanPage_Returns1() {
         int returned = parser.getTotalPages(3, 10);
+        
         assertEquals(1, returned);
     }
     
     @Test
     public void getTotalPages_ListBiggerThanPage_Returns2() {
         int returned = parser.getTotalPages(4, 3);
+        
         assertEquals(2, returned);
     }
     

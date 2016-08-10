@@ -28,17 +28,21 @@ public class MockCommand extends CommandCallable {
     private String message;
     private boolean isValid;
     
+    
     public MockCommand() {
         super(MockBukkitObjectFactory.mockCommand());
+        
         isValid = true;
         message = "Mock command executed";
     }
     
     public MockCommand(String message) {
         super(MockBukkitObjectFactory.mockCommand());
+        
         isValid = true;
         this.message = message;
     }
+    
     
     @Override
     public void call(CommandSender sender, String[] args) {

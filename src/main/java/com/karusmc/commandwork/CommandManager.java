@@ -29,12 +29,14 @@ public class CommandManager {
     
     public static void register(CommandDispatcher dispatcher, CommandCallable command) {
         REGISTERED_COMMANDS.put(command.getName(), command);
+        
         dispatcher.register(command);
     }
     
     
     public static void unregister(CommandDispatcher dispatcher, CommandCallable command) {
         REGISTERED_COMMANDS.remove(command.getName());
+        
         dispatcher.unregister(command);
     }
     

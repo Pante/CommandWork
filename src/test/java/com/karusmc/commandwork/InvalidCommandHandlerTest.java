@@ -44,6 +44,7 @@ public class InvalidCommandHandlerTest {
     
     @Test
     public void conditionsAreValid_Calls_CommandSender_sendMessage_ReturnsFalse() {
+        
         boolean returned = handler.conditionsAreValid(sender, null);
         
         verify(sender, times(1)).sendMessage(message);

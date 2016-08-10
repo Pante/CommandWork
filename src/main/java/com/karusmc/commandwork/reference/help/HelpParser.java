@@ -36,6 +36,7 @@ public class HelpParser {
     public String getCriteria(String[] args) {
         if (args.length == 1 || StringUtils.isNumeric(args[1])) {
             return "All";
+            
         } else {
             return args[1];
         }
@@ -44,10 +45,10 @@ public class HelpParser {
     public Predicate<CommandCallable> getPredicate(CommandSender sender, String criteria) {
         
         if (criteria.equalsIgnoreCase("All")) {
-            return (command) -> sender.hasPermission(command.getPermission());
+            return command -> sender.hasPermission(command.getPermission());
             
         } else {
-            return (command) -> sender.hasPermission(command.getPermission()) && command.getName().contains(criteria);
+            return command -> sender.hasPermission(command.getPermission()) && command.getName().contains(criteria);
         }
         
     }
@@ -66,6 +67,7 @@ public class HelpParser {
         
         if (args.length != 0 && StringUtils.isNumeric(args[args.length - 1])) {
             int number = Integer.parseInt(args[args.length - 1]);
+            
             if (number > 0) {
                 return number;
             }
@@ -76,10 +78,11 @@ public class HelpParser {
     
     
     public int getTotalPages(int listSize, int pageSize) {
-        if (listSize == 0) {
-            return 0;
-        } else {
+        if (listSize != 0) {
             return (int) Math.max(1, Math.ceil((double) listSize / pageSize));
+            
+        } else {
+            return 0;
         }
     }
     

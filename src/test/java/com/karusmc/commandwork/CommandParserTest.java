@@ -26,6 +26,7 @@ import org.junit.Test;
 
 import static com.karusmc.commandwork.mockobjects.MockBukkitObjectFactory.mockSender;
 import static org.junit.Assert.*;
+
 /**
  *
  * @author PanteLegacy @ karusmc.com
@@ -96,6 +97,7 @@ public class CommandParserTest {
     
     @Test
     public void getCommandOrDefault_ReturnsDefault() {
+        
         CommandCallable defaultCommand = new MockCommand();
         CommandCallable returnedCommand = parser.getCommandOrDefault(defaultCommand, null, new String[] {});
         

@@ -37,6 +37,7 @@ public class HelpCommand extends CommandCallable {
     
     private Collection<CommandCallable> commands;
     private HelpParser parser;
+    
     private TextComponentBuilder builder;
     
     
@@ -48,19 +49,21 @@ public class HelpCommand extends CommandCallable {
     
     public HelpCommand(Command command, Collection<CommandCallable> commands, int size) {
         super(command);
-        
+        builder = new TextComponentBuilder(command.getName());
+
         this.commands = commands;
         parser = new HelpParser();
-        builder = new TextComponentBuilder(command.getName());
+
         SIZE = size;
     }
     
     public HelpCommand(Command command, HelpParser parser, TextComponentBuilder builder, Collection<CommandCallable> commands, int size) {
         super(command);
         
+        this.builder = builder;
         this.commands = commands;
         this.parser = parser;
-        this.builder = builder;
+        
         SIZE = size;
     }
 
@@ -71,26 +74,27 @@ public class HelpCommand extends CommandCallable {
         String criteria = parser.getCriteria(args);
         int page = parser.getPage(args);
         
-        List<String> info = parser.getCommandUsages(commands, parser.getPredicate(sender, criteria));
+        List<String> usages = parser.getCommandUsages(commands, parser.getPredicate(sender, criteria));
         
-        int totalPages = parser.getTotalPages(info.size(), SIZE);
+        int totalPages = parser.getTotalPages(usages.size(), SIZE);
         
-        printInfo(sender, info, criteria, page, totalPages);
+        
+        printUsages(sender, usages, criteria, page, totalPages);
         printButtons(sender, criteria, page, totalPages);
         
     }
     
-    private void printInfo(CommandSender sender, List<String> info, String search, int page, int totalPages) {
+    private void printUsages(CommandSender sender, List<String> usages, String search, int page, int totalPages) {
         
         if (page <= totalPages) {
             
             String header = ChatColor.translateAlternateColorCodes('&', "&6==== Help: &c" + search
-                + " &6=== Page: &c" + page + "/" + totalPages + " &6====");
+                    + " &6=== Page: &c" + page + "/" + totalPages + " &6====");
             
             sender.sendMessage(header);
             
-            int last = Math.min(page * SIZE, info.size());
-            sender.sendMessage(info.subList(page * SIZE - SIZE, last).toArray(new String[0]));
+            int last = Math.min(page * SIZE, usages.size());
+            sender.sendMessage(usages.subList(page * SIZE - SIZE, last).toArray(new String[0]));
             
         } else {
             sender.sendMessage(ChatColor.RED + "No matches found.");
@@ -101,6 +105,7 @@ public class HelpCommand extends CommandCallable {
     private void printButtons(CommandSender sender, String search, int page, int totalPages) {
         if (sender instanceof Player) {
             Player player = (Player) sender;
+            
             player.spigot().sendMessage(builder.getBackButton(search, page - 1), builder.getWhiteSpace(), builder.getNextButton(search, page + 1, totalPages));
         }
     }
@@ -108,8 +113,8 @@ public class HelpCommand extends CommandCallable {
     
     @Override
     public boolean conditionsAreValid(CommandSender sender, String[] args) {
-        return (handleNoPermission(sender, command.getPermission()) 
-                && handleInvalidLength(sender, 0, args.length, 3));
+        return handleNoPermission(sender, command.getPermission())
+                && handleInvalidLength(sender, 0, args.length, 3);
     }
     
     
@@ -117,6 +122,7 @@ public class HelpCommand extends CommandCallable {
     public List<String> getAliases() {
         List<String> aliases = command.getAliases();
         aliases.add("help");
+        
         return aliases;
     }
     
