@@ -1,6 +1,7 @@
 # CommandWork - Just another Command Library
 
-<b> This framework has been superseeded by <a href = "https://github.com/Pante/XMC-Toolkit"/>XMC- Extensible Markup Commands</a> and is deprecated.</b>
+<b> This framework has been superseeded by <a href = "https://github.com/Pante/karus-commons"/>Karus-Commons</a> and is deprecated.</b>
+
 
 CommandWork is a plugin.yml based Command Library that aims to make subcommands less of a hassle for developers to create and maintain, with its primary goals being simplicity and ease of use. At roughly 20KB, the library is fairly light.
 
